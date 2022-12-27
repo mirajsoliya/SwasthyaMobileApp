@@ -7,7 +7,29 @@ import { useState } from "react";
            
 
 const Loginpage = () => {
-    const [passSet, setPassSet] = useState(false);
+    const [passSet, setPassSet] = useState(false);  
+    const [pid,setPID] = useState("");
+    const [password,setPassword] = useState("");
+    const [user,setUser] = useState({});
+    const postData = async (e) => {
+        e.preventDefault();
+        const PatientID = pid;
+        const password1 = password;
+        const res = await fetch("http://192.168.1.12:8000/login", {
+            method:"POST",
+            headers:{
+                "Content-Type" :"Application/json"
+            },
+            credentials:"include",
+            body: JSON.stringify({PatientID,password1})
+        });
+        const data = await res.json();
+        if(res.status === 400 || !data){
+            console.log("Invalid details");
+        }else{
+            setUser(data);
+        }
+    }
     var passEye;
     if (passSet) {
         passEye = <Icon name="visibility" style={{ marginTop: -38, marginRight: 10, marginLeft: 'auto' }} size={20} onPress={() => setPassSet(false)} />;
@@ -28,19 +50,20 @@ const Loginpage = () => {
                 <View style={styles.maincontainer}>
 
                     <View style={styles.inputcontainer}>
-                        <TextInput style={styles.inputstyle} placeholder="UserName" />
+                        <TextInput style={styles.inputstyle} placeholder="UserName" onChangeText={newText => setPID(newText)}/>
                     </View>
                     <View style={styles.inputcontainer} >
-                        <TextInput style={styles.inputstyle} placeholder="Password" autoCapitalize="none" autoCorrect={false}  secureTextEntry={!passSet}/>
+                        <TextInput style={styles.inputstyle} placeholder="Password" onChangeText={newText => setPassword(newText)} autoCapitalize="none" autoCorrect={false}  secureTextEntry={!passSet}/>
                     </View>
                     {passEye}
                     <Pressable
                         style={styles.submit}
+                        onPress={postData}
                         underlayColor='#fff'
                         android_ripple={{ color: '#fff' }}>
                         <Text style={styles.submitText}>Log in</Text>
                     </Pressable>
-
+                    <Text>{user.fname}</Text>
                 </View>
             </View>
         </ScrollView>
