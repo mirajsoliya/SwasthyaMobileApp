@@ -1,45 +1,70 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, TextInput, Button, Pressable, ScrollView } from "react-native";
-
-import img from '../images/login1.gif'
+import React, { useEffect, useReducer } from "react";
+import { View, Text, StyleSheet, Image, TextInput, Button, Pressable, ScrollView, Alert } from "react-native";
+import img from '../../images/login1.gif'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useState } from "react";
-           
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Loginpage = () => {
-    const [passSet, setPassSet] = useState(false);  
-    const [pid,setPID] = useState("");
-    const [password,setPassword] = useState("");
-    const [user,setUser] = useState({});
+const Loginpage = (props) => {
+    const navigation = useNavigation()
+    const [passSet, setPassSet] = useState(false);
+    const [pid, setPID] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [user, setUser] = useState({});
+
     const postData = async (e) => {
+
         e.preventDefault();
         const PatientID = pid;
         const password1 = password;
-        const res = await fetch("http://192.168.1.12:8000/login", {
-            method:"POST",
-            headers:{
-                "Content-Type" :"Application/json"
+        const res = await fetch("http://192.168.199.3:8000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "Application/json"
             },
-            credentials:"include",
-            body: JSON.stringify({PatientID,password1})
+            credentials: "include",
+            body: JSON.stringify({ PatientID, password1 })
         });
+
         const data = await res.json();
-        if(res.status === 400 || !data){
+
+        if (res.status === 400 || !data) {
             console.log("Invalid details");
-        }else{
-            setUser(data);
         }
+        else {
+            setUser(data);
+            const jsonValue = JSON.stringify(user)
+            await AsyncStorage.setItem('user', jsonValue)
+            navigation.navigate("MainScreen");
+        }
+        // if (pid === '' && password === '') {
+        //     navigation.navigate("MainScreen");
+        // }
     }
+
+
     var passEye;
     if (passSet) {
         passEye = <Icon name="visibility" style={{ marginTop: -38, marginRight: 10, marginLeft: 'auto' }} size={20} onPress={() => setPassSet(false)} />;
     } else {
         passEye = <Icon name="visibility-off" style={{ marginTop: -38, marginRight: 10, marginLeft: 'auto' }} size={20} onPress={() => setPassSet(true)} />
     }
+
+    React.useEffect(
+        () =>
+            navigation.addListener('beforeRemove', (e) => {
+
+                e.preventDefault();
+            }),
+        [navigation]
+    );
+
     return (
-       <ScrollView style={{width:'100%'}}>
+        <ScrollView style={{ width: '100%' }}>
             <Text style={styles.heading}>Swasthya</Text>
-            <View style={{ width: '100%',marginTop:50}}>
+            <View style={{ width: '100%', marginTop: 50 }}>
                 <View style={styles.imgContainer}>
 
                     <Image
@@ -50,10 +75,10 @@ const Loginpage = () => {
                 <View style={styles.maincontainer}>
 
                     <View style={styles.inputcontainer}>
-                        <TextInput style={styles.inputstyle} placeholder="UserName" onChangeText={newText => setPID(newText)}/>
+                        <TextInput style={styles.inputstyle} placeholder="UserName" onChangeText={newText => setPID(newText)} />
                     </View>
                     <View style={styles.inputcontainer} >
-                        <TextInput style={styles.inputstyle} placeholder="Password" onChangeText={newText => setPassword(newText)} autoCapitalize="none" autoCorrect={false}  secureTextEntry={!passSet}/>
+                        <TextInput style={styles.inputstyle} placeholder="Password" onChangeText={newText => setPassword(newText)} autoCapitalize="none" autoCorrect={false} secureTextEntry={!passSet} />
                     </View>
                     {passEye}
                     <Pressable
@@ -63,11 +88,11 @@ const Loginpage = () => {
                         android_ripple={{ color: '#fff' }}>
                         <Text style={styles.submitText}>Log in</Text>
                     </Pressable>
-                    <Text>{user.fname}</Text>
                 </View>
             </View>
+            {/* <Text>{user.fname}</Text> */}
         </ScrollView>
-     
+
     );
 }
 
@@ -82,7 +107,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 60,
         marginBottom: 'auto',
-        textAlign:'center',
+        textAlign: 'center',
     },
     imgContainer: {
 
@@ -100,6 +125,7 @@ const styles = StyleSheet.create({
         width: "80%",
         padding: 10,
         paddingTop: -100,
+        marginTop: 40,
         marginLeft: 'auto',
         marginRight: 'auto',
         alignItems: 'center',
@@ -108,7 +134,7 @@ const styles = StyleSheet.create({
     inputcontainer:
     {
         margin: 10,
-        borderRadius: 15,
+        borderRadius: 5,
         padding: 5,
         backgroundColor: '#E7E6E0',
         elevation: 8,
