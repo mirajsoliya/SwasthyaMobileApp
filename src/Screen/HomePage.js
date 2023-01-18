@@ -9,9 +9,11 @@ import Notification from "./Notification";
 import { View, StyleSheet, Text, Touchable } from "react-native";
 import { AntDesign, Fontisto, FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
-const HomePage = ({ navigation }) => {
+const HomePage = () => {
+    const navigation = useNavigation();
     return (
         <>
             <Tab.Navigator
@@ -41,30 +43,30 @@ const HomePage = ({ navigation }) => {
                 />
             </Tab.Navigator>
 
-            <View className="bg-gray-200 flex flex-row justify-between py-3 px-10 rounded-t-3xl bottom-0 w-full">
+            <View className="bg-gray-200 flex flex-row justify-between py-3 px-10 rounded-t-3xl bottom-0 w-full h-16">
 
-                <View className="items-center">
-                    <TouchableOpacity className="items-center" onPress={() => { }}>
-                        <FontAwesome name="home" size={24} color={"#6561D2"} />
-                        <Text className="text-[#6561D2]  text-xs mt-2 ">Home</Text>
+                <View className="items-center justify-center">
+                    <TouchableOpacity className="items-center" onPress={() => { navigation.navigate("Home") }}>
+                        <FontAwesome name="home" size={20} color={"#6561D2"} />
+                        {/* <Text className="text-[#6561D2]  text-xs mt-2 ">Home</Text> */}
                     </TouchableOpacity>
                 </View>
-                <View className="items-center">
-                    <TouchableOpacity className="items-center" onPress={() => { }}>
-                        <AntDesign name="calendar" size={24} color={"#6561D2"} />
-                        <Text className="text-[#6561D2] text-xs mt-2 ">Appoinment</Text>
+                <View className="items-center  justify-center">
+                    <TouchableOpacity className="items-center" onPress={() => { navigation.navigate("BookAppoinment") }}>
+                        <AntDesign name="calendar" size={20} color={"#6561D2"} />
+                        {/* <Text className="text-[#6561D2] text-xs mt-2 ">Appoinment</Text> */}
                     </TouchableOpacity>
                 </View>
-                <View className="items-center">
-                    <TouchableOpacity className="items-center">
-                        <Fontisto name="prescription" size={24} color={"#6561D2"} />
-                        <Text className="text-[#6561D2] text-xs mt-2">Prescription</Text>
+                <View className="items-center  justify-center">
+                    <TouchableOpacity className="items-center" onPress={() => { navigation.navigate("Prescription") }}>
+                        <Fontisto name="prescription" size={20} color={"#6561D2"} />
+                        {/* <Text className="text-[#6561D2] text-xs mt-2">Prescription</Text> */}
                     </TouchableOpacity>
                 </View>
-                <View className="items-center">
-                    <TouchableOpacity className="items-center">
-                        <AntDesign name="notification" size={24} color={"#6561D2"} />
-                        <Text className="text-[#6561D2] text-xs mt-2">Notification</Text>
+                <View className="items-center  justify-center">
+                    <TouchableOpacity className="items-center" onPress={() => { navigation.navigate("Notification") }}>
+                        <AntDesign name="notification" size={20} color={"#6561D2"} />
+                        {/* <Text className="text-[#6561D2] text-xs mt-2">Notification</Text> */}
                     </TouchableOpacity>
                 </View>
 

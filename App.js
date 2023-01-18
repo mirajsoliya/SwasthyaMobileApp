@@ -8,6 +8,7 @@ import {
 import AppNavigator from './src/pages/AppNavigator';
 
 
+
 const App = () => {
   return (<AppNavigator />
   )
