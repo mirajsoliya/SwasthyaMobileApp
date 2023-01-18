@@ -7,7 +7,7 @@ const BookAppoinment = ({ user, navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Text>appoinment</Text>
+      <Text>Appoinment</Text>
     </View>
   )
 };

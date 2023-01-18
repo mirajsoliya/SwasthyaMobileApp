@@ -2,7 +2,7 @@ import { View, Text, useWindowDimensions } from 'react-native'
 import React, { useState } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { useRoute } from '@react-navigation/native';
-
+import { FontAwesome5 } from '@expo/vector-icons';
 import HomePage from '../Screen/HomePage';
 import Sidebar from './Sidebar';
 import About from '../Sidebarpages/About';
@@ -20,16 +20,22 @@ const MainScreen = ({ navigation, user }) => {
       screenOptions={{
         headerShown: true,
         headerStyle: {
-          backgroundColor: 'transparent',
+          backgroundColor: 'yellow',
           elevation: 0,
-          shadowOpacity: 0
+          shadowOpacity: 0,
+          borderWidth: 1
         },
-        headerTitle: ''
+
+        drawerContent: {
+
+        },
+        headerTitle: '',
+
       }}
+
       drawerContent={props => <Sidebar {...props} />}>
 
       <Drawer.Screen
-        options={{ gestureResponseDistance: width }}
         name='Homepage'>
         {props => <HomePage />}
       </Drawer.Screen>
