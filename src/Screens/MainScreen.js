@@ -25,10 +25,6 @@ const MainScreen = ({ navigation, user }) => {
           shadowOpacity: 0,
           borderWidth: 1
         },
-
-        drawerContent: {
-
-        },
         headerTitle: '',
 
       }}
