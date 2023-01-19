@@ -5,7 +5,7 @@ import BookAppoinment from './BookAppoinment';
 import Prescription from "./Prescription";
 import Notification from "./Notification";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { View, StyleSheet, Touchable } from 'react-native';
+import { View, StyleSheet, Touchable, Pressable } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
 
@@ -35,7 +35,7 @@ const TabButton = (props) => {
     }, [focused])
 
     return (
-        <TouchableOpacity
+        <Pressable
             onPress={onPress}
             activeOpacity={1}
             style={styles.container}>
@@ -45,7 +45,7 @@ const TabButton = (props) => {
                 style={styles.container}>
                 <Icon type={item.type} name={item.activeIcon} color={focused ? 'pink' : 'green'} size={20} />
             </Animatable.View>
-        </TouchableOpacity>
+        </Pressable>
     )
 }
 
@@ -90,7 +90,7 @@ export default HomePage;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex:1,
         justifyContent: 'center',
         alignItems: 'center',
 
