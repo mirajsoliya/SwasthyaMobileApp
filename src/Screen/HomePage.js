@@ -1,147 +1,98 @@
-import { NavigationContainer, useRoute } from "@react-navigation/native";
-import React, { useEffect } from "react";
-
+import React, { useEffect, useRef } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../Bottom/Home";
-import BookAppoinment from "./BookAppoinment";
+import Home from '../Bottom/Home';
+import BookAppoinment from './BookAppoinment';
 import Prescription from "./Prescription";
 import Notification from "./Notification";
-import { View, StyleSheet, Text, Touchable } from "react-native";
-import { AntDesign, Fontisto, FontAwesome } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { View, StyleSheet, Touchable } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as Animatable from 'react-native-animatable';
+
+const Tabarr = [
+    { route: 'Home', label: 'Home', type: Icon.MaterialCommunityIcons, activeIcon: 'home-variant', inActiveIcon: 'home-outline', component: Home },
+    { route: 'BookAppoinment', label: 'BookAppoinment', type: Icon.MaterialCommunityIcons, activeIcon: 'calendar-month', inActiveIcon: 'calendar-month-outline', component: BookAppoinment },
+    { route: 'Prescription', label: 'Prescription', type: Icon.MaterialCommunityIcons, activeIcon: 'book-open', inActiveIcon: 'book-open-outline', component: Prescription },
+    { route: 'Notification', label: 'Notification', type: Icon.MaterialCommunityIcons, activeIcon: 'alarm-light', inActiveIcon: 'alarm-light-outline', component: Notification },
+
+];
+
 
 const Tab = createBottomTabNavigator();
-const HomePage = () => {
-    const navigation = useNavigation();
+
+const TabButton = (props) => {
+    const { item, onPress, accessibilityState } = props;
+    const focused = accessibilityState.selected;
+    const viewRef = useRef(null);
+
+    useEffect(() => {
+        if (focused) {
+            viewRef.current.animate({ 0: { scale: .5, rotate: '0deg' }, 1: { scale: 1.5, rotate: '360deg' } })
+        }
+        else {
+            viewRef.current.animate({ 0: { scale: 1.5, rotate: '360deg' }, 1: { scale: 1, rotate: '0deg' } })
+        }
+    }, [focused])
+
     return (
-        <>
-            <Tab.Navigator
-                screenOptions={{
-                    headerShown: false,
-                }}
-            >
-                <Tab.Screen
-                    name="Home"
-                    component={Home}
-                    options={{ tabBarStyle: { display: "none" } }}
-                />
-                <Tab.Screen
-                    name="BookAppoinment"
-                    component={BookAppoinment}
-                    options={{ tabBarStyle: { display: "none" } }}
-                />
-                <Tab.Screen
-                    name="Prescription"
-                    component={Prescription}
-                    options={{ tabBarStyle: { display: "none" } }}
-                />
-                <Tab.Screen
-                    name="Notification"
-                    component={Notification}
-                    options={{ tabBarStyle: { display: "none" } }}
-                />
-            </Tab.Navigator>
-
-            <View className="bg-gray-200 flex flex-row justify-between py-3 px-10 rounded-t-3xl bottom-0 w-full h-16">
-
-                <View className="items-center justify-center">
-                    <TouchableOpacity className="items-center" onPress={() => { navigation.navigate("Home") }}>
-                        <FontAwesome name="home" size={20} color={"#6561D2"} />
-                        {/* <Text className="text-[#6561D2]  text-xs mt-2 ">Home</Text> */}
-                    </TouchableOpacity>
-                </View>
-                <View className="items-center  justify-center">
-                    <TouchableOpacity className="items-center" onPress={() => { navigation.navigate("BookAppoinment") }}>
-                        <AntDesign name="calendar" size={20} color={"#6561D2"} />
-                        {/* <Text className="text-[#6561D2] text-xs mt-2 ">Appoinment</Text> */}
-                    </TouchableOpacity>
-                </View>
-                <View className="items-center  justify-center">
-                    <TouchableOpacity className="items-center" onPress={() => { navigation.navigate("Prescription") }}>
-                        <Fontisto name="prescription" size={20} color={"#6561D2"} />
-                        {/* <Text className="text-[#6561D2] text-xs mt-2">Prescription</Text> */}
-                    </TouchableOpacity>
-                </View>
-                <View className="items-center  justify-center">
-                    <TouchableOpacity className="items-center" onPress={() => { navigation.navigate("Notification") }}>
-                        <AntDesign name="notification" size={20} color={"#6561D2"} />
-                        {/* <Text className="text-[#6561D2] text-xs mt-2">Notification</Text> */}
-                    </TouchableOpacity>
-                </View>
-
-            </View>
-
-        </>
-        // <Tab.Navigator
-
-        //     activeColor="#808080"
-        //     barStyle={{
-        //         // backgroundColor: '#808080',
-
-        //     }}
-        //     headerShown={false}
-        //     gestureHandler={true}
-        //     shifting={true}
-        //     tabBarColor='red'
-        //     screenOptions={({ route }) => ({
-        //         headerShown: false,
-        //         tabBarIcon: ({ color, sized, focused }) => {
-        //             let iconname;
-        //             if (route.name == 'Home') {
-        //                 iconname = focused ? 'home' : 'home-outline';
-        //             }
-        //             else if (route.name == 'Appoinment') {
-        //                 iconname = focused ? 'calendar-month' : 'calendar-month-outline';
-        //             }
-        //             else if (route.name == 'Prescription') {
-        //                 iconname = focused ? 'book-edit' : 'book-edit-outline';
-        //             }
-        //             else if (route.name == 'Notification') {
-        //                 iconname = focused ? 'alarm-light' : 'alarm-light-outline';
-        //             }
-        //             return <Icon name={iconname} size={25} color='#68a0cf' />;
-        //         },
-
-
-
-        //     })}
-
-        //     tabBarOptions={{
-        //         style: { backgroundColor: "#000000", },
-        //     }}
-
-        // >
-        //     <Tab.Screen name="Home" >
-        //         {props => <Home />}
-        //     </Tab.Screen>
-        //     <Tab.Screen name="Appoinment" >
-        //         {props => <BookAppoinment />}
-        //     </Tab.Screen>
-        //     <Tab.Screen name="Prescription" >
-        //         {props => <Prescription />}
-        //     </Tab.Screen>
-        //     <Tab.Screen name="Notification" >
-        //         {props => <Notification />}
-        //     </Tab.Screen>
-        // </Tab.Navigator>
-
+        <TouchableOpacity
+            onPress={onPress}
+            activeOpacity={1}
+            style={styles.container}>
+            <Animatable.View
+                ref={viewRef}
+                duration={1500}
+                style={styles.container}>
+                <Icon type={item.type} name={item.activeIcon} color={focused ? 'pink' : 'green'} size={20} />
+            </Animatable.View>
+        </TouchableOpacity>
     )
-};
+}
+
+function HomePage() {
+    return (
+        <Tab.Navigator
+
+            screenOptions={{
+                headerShown: false,
+
+                tabBarStyle: {
+                    height: 60,
+                    position: 'absolute',
+                    bottom: 16,
+                    left: 16,
+                    right: 16,
+                    borderRadius: 16,
+                    backgroundColor: 'yellow',
+                }
+            }}>
+
+            {Tabarr.map((item, index) => {
+                return (
+                    <Tab.Screen name={item.route} component={item.component}
+                        options={{
+                            tabBarShowLabel: false,
+                            // tabBarLabel: item.label,
+                            tabBarIcon: ({ color, focused }) => (
+                                <Icon type={item.type} name={focused ? item.activeIcon : item.inActiveIcon} color='#68a0cf' size={25} />
+                            ),
+                            tabBarButton: (props) => <TabButton {...props} item={item} />
+                        }}
+
+                    />
+                )
+            })}
+
+        </Tab.Navigator>
+    );
+}
+export default HomePage;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#2A2E39',
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingVertical: 3,
-        paddingHorizontal: 10,
-        width: '100%',
-    },
+        justifyContent: 'center',
+        alignItems: 'center',
 
-
-});
-
-
-export default HomePage;
+    }
+})
