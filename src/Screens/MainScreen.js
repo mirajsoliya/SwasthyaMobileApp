@@ -20,10 +20,9 @@ const MainScreen = ({ navigation, user }) => {
       screenOptions={{
         headerShown: true,
         headerStyle: {
-          backgroundColor: 'yellow',
+          // backgroundColor: 'yellow',
           elevation: 0,
           shadowOpacity: 0,
-          borderWidth: 1
         },
         headerTitle: '',
 

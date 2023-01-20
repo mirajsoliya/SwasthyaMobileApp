@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { View, StyleSheet, Touchable, Pressable } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
+import { color } from 'react-native-reanimated';
 
 const Tabarr = [
     { route: 'Home', label: 'Home', type: Icon.MaterialCommunityIcons, activeIcon: 'home-variant', inActiveIcon: 'home-outline', component: Home },
@@ -43,7 +44,7 @@ const TabButton = (props) => {
                 ref={viewRef}
                 duration={1500}
                 style={styles.container}>
-                <Icon type={item.type} name={item.activeIcon} color={focused ? 'pink' : 'green'} size={20} />
+                <Icon type={item.type} name={item.activeIcon} style={focused ? { color: '#a855f7', borderRadius: 50, padding: 5, textAlign: 'center', backgroundColor: '#ddd6fe' } : { color: '#a855f7' }} size={20} />
             </Animatable.View>
         </Pressable>
     )
@@ -63,13 +64,14 @@ function HomePage() {
                     left: 16,
                     right: 16,
                     borderRadius: 16,
-                    backgroundColor: 'yellow',
+                    backgroundColor: '#f3f4f6',
+                    borderColor: '#f3f4f6'
                 }
             }}>
 
             {Tabarr.map((item, index) => {
                 return (
-                    <Tab.Screen name={item.route} component={item.component}
+                    <Tab.Screen key={index} name={item.route} component={item.component}
                         options={{
                             tabBarShowLabel: false,
                             // tabBarLabel: item.label,
@@ -90,7 +92,7 @@ export default HomePage;
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
 
