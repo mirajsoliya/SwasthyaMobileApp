@@ -53,41 +53,44 @@ const Prescription = ({ navigation, setRootName }) => {
                 </View>
                 {Object.keys(pres).length > 0 ?
                     <>
-                        <View className="flex">
-                            <Text className="font-medium text-xl">Problem</Text>
-                            <Text className="font-medium">{pres.problem}</Text>
+                        <View className="flex flex-row items-center gap-x-2">
+                            <Text className="font-bold text-xl text-violet-700">Problem:</Text>
+                            <Text className="font-medium text-violet-700 text-lg">{pres.problem}</Text>
                         </View>
-                        <View className="flex mt-2">
-                            <Text className="font-medium text-xl">Diagnosis</Text>
-                            <Text className="font-medium">{pres.diagnosis}</Text>
+                        <View className="flex flex-row gap-x-2">
+                            <Text className="font-bold text-xl text-violet-700">Diagnosis:</Text>
+                            <Text className="font-medium text-lg text-violet-700">{pres.diagnosis}</Text>
                         </View>
-                        <Text className="font-semibold text-xl my-2">List of prescribed medicines...</Text>
+                        <Text className="font-semibold text-emerald-700 text-xl mt-2">List of prescribed medicines...</Text>
                         <View>
                             {pres.Medicines.map((val, idx) => {
                                 return (
                                     <>
-                                        <View key={idx} className="my-2 p-2 rounded-xl bg-yellow-100">
-                                            <Text className="uppercase text-lg font-semibold">{val.name}</Text>
-                                            <Text>When to take?</Text>
-                                            <View className="flex flex-row gap-x-1 my-2">
-                                                <View className="p-2 w-1/2 bg-blue-200 rounded-lg">
-                                                    {/* <FontAwesomeIcon icon={solid('user-secret')} /> */}
+                                        <View key={idx} className="my-2 p-4 rounded-xl bg-yellow-100">
+                                            <View className="flex flex-row items-center gap-x-2">
+                                                <Image className="h-8 w-8" source={require("../../Icons/medicine.png")} />
+                                                <Text className="capitalize text-xl font-semibold text-red-700">{val.name}</Text>
+                                            </View>
+                                            <Text className="text-md font-medium mt-2">When to take?</Text>
+                                            <View className="flex flex-row gap-x-1">
+                                                <View className="p-2 w-1/2 bg-blue-200 rounded-lg flex flex-row">
+                                                    <AntDesign name="leftcircleo" size={24} color="black" />
                                                     <Text className={`font-medium text-center ${val.beaf ? 'line-through' : ""}`}>Before</Text>
                                                 </View>
-                                                <View className="p-2 w-1/2 bg-blue-200 rounded-lg">
-                                                    {/* <FontAwesomeIcon icon="fa-solid fa-chevrons-right" /> */}
+                                                <View className="p-2 w-1/2 bg-blue-200 rounded-lg flex flex-row">
                                                     <Text className={`font-medium text-center ${!val.beaf ? 'line-through' : ""}`}>After</Text>
+                                                    <AntDesign name="rightcircleo" size={24} color="black" />
                                                 </View>
                                             </View>
                                             {/* <Text>{}</Text>s */}
-                                            <View className="flex flex-wrap flex-row justify-between mx-2 gap-y-2">
-                                                <View>
-                                                    {val.morning ? <View className="flex flex-row justify-between mx-2 items-center gap-x-2 w-1/2 rounded-lg bg-blue-200"><Image source={require("../../Icons/breakfast.png")} /><Text>Breakfast</Text></View> : <></>}
-                                                    {val.afternoon ? <View className="flex flex-row justify-between mx-2 items-center gap-x-2 w-1/2 rounded-lg bg-blue-200"><Image source={require("../../Icons/lunch-time.png")} /><Text>Lunch</Text></View> : <></>}
+                                            <View className="flex flex-wrap flex-row justify-between gap-y-2">
+                                                <View className="flex flex-row gap-x-2 w-full">
+                                                    {val.morning ? <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200"><Image source={require("../../Icons/breakfast.png")} /><Text>Breakfast</Text></View> : <></>}
+                                                    {val.afternoon ? <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200"><Image source={require("../../Icons/lunch-time.png")} /><Text>Lunch</Text></View> : <></>}
                                                 </View>
-                                                <View>
-                                                    {val.evening ? <View className="flex flex-row justify-between mx-2 items-center gap-x-2 w-1/2 rounded-lg bg-blue-200"><Image source={require("../../Icons/snack.png")} /><Text>Snacks</Text></View> : <></>}
-                                                    {val.night ? <View className="flex flex-row justify-between mx-2 items-center gap-x-2 w-1/2 rounded-lg bg-blue-200"><Image source={require("../../Icons/christmas-dinner.png")} /><Text>Dinner</Text></View> : <></>}
+                                                <View className="flex flex-row gap-x-2 w-full">
+                                                    {val.evening ? <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200"><Image source={require("../../Icons/snack.png")} /><Text>Snacks</Text></View> : <></>}
+                                                    {val.night ? <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200"><Image source={require("../../Icons/christmas-dinner.png")} /><Text>Dinner</Text></View> : <></>}
                                                 </View>
                                             </View>
                                         </View>
