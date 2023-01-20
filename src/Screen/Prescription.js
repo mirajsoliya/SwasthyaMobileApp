@@ -2,6 +2,7 @@ import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet, Image, Button } from "react-native";
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { AntDesign } from "@expo/vector-icons";
 
 
 const Prescription = ({ navigation, setRootName }) => {
@@ -13,10 +14,12 @@ const Prescription = ({ navigation, setRootName }) => {
             if (PID == null) {
                 return;
             }
+
             const res = await fetch("http://192.168.93.3:8000/getLatestPrescription", {
                 method: "POST",
                 headers: {
                     "Content-Type": "Application/json"
+
                 },
                 body: JSON.stringify({ PID })
             })
@@ -97,8 +100,6 @@ const Prescription = ({ navigation, setRootName }) => {
                     <></>
                 }
             </View>
-        </ScrollView>
-    )
 };
 
 const styles = StyleSheet.create({
