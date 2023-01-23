@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from '../Bottom/Home';
-import BookAppoinment from './BookAppoinment';
-import Prescription from "./Prescription";
-import Notification from "./Notification";
+import Home from '../Screen/Home';
+import BookAppoinment from '../Screen/BookAppoinment';
+import Prescription from "../Screen/Prescription";
+import Notification from "../Screen/Notification";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { View, StyleSheet, Touchable, Pressable } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -95,6 +95,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-
+        
     }
 })

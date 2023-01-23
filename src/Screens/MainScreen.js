@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { useRoute } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
-import HomePage from '../Screen/HomePage';
+import HomePage from '../Bottom/HomePage';
 import Sidebar from './Sidebar';
 import About from '../Sidebarpages/About';
 import Profile from '../Sidebarpages/Profile';
