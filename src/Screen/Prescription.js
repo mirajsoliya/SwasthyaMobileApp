@@ -103,6 +103,8 @@ const Prescription = ({ navigation, setRootName }) => {
                     <></>
                 }
             </View>
+            </ScrollView>
+            )
 };
 
 const styles = StyleSheet.create({
