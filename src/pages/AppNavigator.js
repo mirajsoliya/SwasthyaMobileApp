@@ -13,7 +13,7 @@ import Loginpage from './Loginpage';
 import Introslider from './Introslider';
 
 import MainScreen from '../Screens/MainScreen';
-import Home from '../Bottom/Home';
+import Home from '../Screen/Home';
 import BookAppoinment from '../Screen/BookAppoinment';
 
 
