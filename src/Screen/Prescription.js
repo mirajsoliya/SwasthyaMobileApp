@@ -38,7 +38,7 @@ const Prescription = ({ navigation, setRootName }) => {
   };
   return (
     <ScrollView>
-      <View className="m-4">
+      <View className="m-4 mt-2">
         <View className="">
           <Text className="text-2xl text-slate-900 font-semibold">
             Your drug cabinet
@@ -120,7 +120,9 @@ const Prescription = ({ navigation, setRootName }) => {
               })} */}
               {[...Array(5)].map((val, idx) => {
                 return (
-                  <MedicineWidget val={val} idx={idx}/>
+                    <View key={idx} className="my-2 p-4 rounded-3xl bg-gray-100">
+                  <MedicineWidget val={val}/>
+                  </View>
                 );
               })}
             </View>
@@ -155,7 +157,7 @@ const MedicineWidget = (props) => {
     const[isActive,setisActive] = useState(false);
   return (
     <>
-      <View key={props.idx} className="my-2 p-4 rounded-3xl bg-gray-100">
+      
         <View className="flex flex-row items-center gap-x-2">
           <Image
             className="h-8 w-8"
@@ -224,7 +226,6 @@ const MedicineWidget = (props) => {
             {/* )} */}
           </View>
         {/* </View> */}
-      </View>
     </>
   );
 };

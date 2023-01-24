@@ -1,6 +1,7 @@
-import { View, Text, useWindowDimensions } from 'react-native'
+import { View, Text, useWindowDimensions, Button, Image } from 'react-native'
 import React, { useState } from 'react'
-import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer'
+import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import HomePage from '../Bottom/HomePage';
@@ -13,18 +14,40 @@ import Support from '../Sidebarpages/Support';
 
 const Drawer = createDrawerNavigator();
 
-const MainScreen = ({ navigation, user }) => {
+const Welcome = () => {
+    return(
+        <>
+            <View className="flex flex-row items-center ml-6 space-x-2">
+                <Image source={require("../../images/avatar.jpg")} className="h-12 w-12 rounded-full"/>
+                <View className="flex">
+                    <Text className="font-medium text-xs">Welcome back</Text>
+                    <Text className="font-medium text-2xl">Ronaldo</Text>
+                </View>
+            </View>
+        </>
+    )
+}
+
+const MainScreen = (props) => {
   const { width } = useWindowDimensions();
   return (
     <Drawer.Navigator
+    useLegacyImplementation
       screenOptions={{
         headerShown: true,
         headerStyle: {
-          // backgroundColor: 'yellow',
+          backgroundColor: 'transparent',
+          height:160,
           elevation: 0,
           shadowOpacity: 0,
         },
-        headerTitle: '',
+        headerTitle:"",
+        headerRight: () => (
+               <Image source={require("../../Icons/menu.png")} className="mr-6 w-10 h-10" />
+        ),
+        headerLeft: () => (
+            <Welcome/>
+        )
 
       }}
 
