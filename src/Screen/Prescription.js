@@ -16,7 +16,7 @@ const Prescription = ({ navigation, setRootName }) => {
       }
 
       const res = await fetch(
-        "http://192.168.1.100:8000/getLatestPrescription",
+        "http://192.168.1.15:8000/getLatestPrescription",
         {
           method: "POST",
           headers: {
@@ -64,65 +64,65 @@ const Prescription = ({ navigation, setRootName }) => {
           />
           <Button onPress={postData} title="Search" />
         </View>
-          <View className="flex flex-row item bg-gray-100 rounded-xl">
-            <View className="w-1/2 flex justify-between items-center p-2">
-                <View className="flex flex-row justify-between">
-                    <Text className="w-20">Daily Meds Taken</Text>
-                    <Text>1/4</Text>
-                </View>
-                <View className="">
-                    <View className="h-2 w-full rounded-full bg-gray-200 absolute top-0 left-0"></View>
-                    <View className="h-2 rounded-full w-1/4 bg-sky-600 absolute top-0 left-0"></View>
-                </View>
+        <View className="flex flex-row item bg-gray-100 rounded-xl">
+          <View className="w-1/2 flex justify-between items-center p-2">
+            <View className="flex flex-row justify-between">
+              <Text className="w-20">Daily Meds Taken</Text>
+              <Text>1/4</Text>
             </View>
-            <View className="w-1/2 flex justify-between p-2">
-                <View className="flex flex-row justify-between">
-                    <Text>Treatment progress</Text>
-                    <Text>33%</Text>
-                </View>
-                <View className="relative">
-                    <View className="h-2 w-full rounded-full bg-gray-200 absolute top-0 left-0"></View>
-                    <View className="h-2 w-1/3 rounded-full bg-red-400 absolute top-0 left-0"></View>
-                </View>
+            <View className="">
+              <View className="h-2 w-full rounded-full bg-gray-200 absolute top-0 left-0"></View>
+              <View className="h-2 rounded-full w-1/4 bg-sky-600 absolute top-0 left-0"></View>
             </View>
           </View>
+          <View className="w-1/2 flex justify-between p-2">
+            <View className="flex flex-row justify-between">
+              <Text>Treatment progress</Text>
+              <Text>33%</Text>
+            </View>
+            <View className="relative">
+              <View className="h-2 w-full rounded-full bg-gray-200 absolute top-0 left-0"></View>
+              <View className="h-2 w-1/3 rounded-full bg-red-400 absolute top-0 left-0"></View>
+            </View>
+          </View>
+        </View>
 
         {/* {Object.keys(pres).length > 0 ? ( */}
-          <>
-            <View className="flex flex-row items-center gap-x-2">
-              <Text className="font-bold text-xl text-violet-700">
-                Problem:
-              </Text>
-              <Text className="font-medium text-violet-700 text-lg">
-                {/* {pres.problem} */}Vommiting due to overeating
-              </Text>
-            </View>
-            <View className="flex flex-row gap-x-2">
-              <Text className="font-bold text-xl text-violet-700">
-                Diagnosis:
-              </Text>
-              <Text className="font-medium text-lg text-violet-700">
-                {/* {pres.diagnosis} */} medicine will do the thing
-              </Text>
-            </View>
-            <Text className="font-semibold text-emerald-700 text-xl mt-2">
-              List of prescribed medicines...
+        <>
+          <View className="flex flex-row items-center gap-x-2">
+            <Text className="font-bold text-xl text-violet-700">
+              Problem:
             </Text>
-            <View>
-              {/* {pres.Medicines.map((val, idx) => {
+            <Text className="font-medium text-violet-700 text-lg">
+              {/* {pres.problem} */}Vommiting due to overeating
+            </Text>
+          </View>
+          <View className="flex flex-row gap-x-2">
+            <Text className="font-bold text-xl text-violet-700">
+              Diagnosis:
+            </Text>
+            <Text className="font-medium text-lg text-violet-700">
+              {/* {pres.diagnosis} */} medicine will do the thing
+            </Text>
+          </View>
+          <Text className="font-semibold text-emerald-700 text-xl mt-2">
+            List of prescribed medicines...
+          </Text>
+          <View>
+            {/* {pres.Medicines.map((val, idx) => {
                 return (
                   <MedicineWidget val={val} idx={idx}/>
                 );
               })} */}
-              {[...Array(8)].map((val, idx) => {
-                return (
-                  <MedicineWidget val={val} idx={idx}/>
-                );
-              })}
-            </View>
-          </>
+            {[...Array(8)].map((val, idx) => {
+              return (
+                <MedicineWidget val={val} idx={idx} />
+              );
+            })}
+          </View>
+        </>
         {/* ) : ( */}
-          {/* <></> */}
+        {/* <></> */}
         {/* )} */}
       </View>
     </ScrollView>
@@ -168,7 +168,7 @@ const MedicineWidget = (props) => {
               className={`font-medium text-center
               `}
             >
-                {/* props.val.beaf ? "line-through" : "" */}
+              {/* props.val.beaf ? "line-through" : "" */}
               Before
             </Text>
           </View>
@@ -176,7 +176,7 @@ const MedicineWidget = (props) => {
             <Text
               className={`font-medium text-center `}
             >
-                {/* !props.val.beaf ? "line-through" : "" */}
+              {/* !props.val.beaf ? "line-through" : "" */}
               After
             </Text>
             <AntDesign name="rightcircleo" size={24} color="black" />
@@ -186,38 +186,38 @@ const MedicineWidget = (props) => {
         <View className="flex flex-wrap flex-row justify-between gap-y-2">
           <View className="flex flex-row gap-x-2 w-full">
             {/* {props.val.morning ? ( */}
-              <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200">
-                <Image source={require("../../Icons/breakfast.png")} />
-                <Text>Breakfast</Text>
-              </View>
+            <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200">
+              <Image source={require("../../Icons/breakfast.png")} />
+              <Text>Breakfast</Text>
+            </View>
             {/* ) : ( */}
-              {/* <></> */}
+            {/* <></> */}
             {/* )} */}
             {/* {props.val.afternoon ? ( */}
-              <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200">
-                <Image source={require("../../Icons/lunch-time.png")} />
-                <Text>Lunch</Text>
-              </View>
+            <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200">
+              <Image source={require("../../Icons/lunch-time.png")} />
+              <Text>Lunch</Text>
+            </View>
             {/* ) : ( */}
-              {/* <></> */}
+            {/* <></> */}
             {/* )} */}
           </View>
           <View className="flex flex-row gap-x-2 w-full">
             {/* {props.val.evening ? ( */}
-              <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200">
-                <Image source={require("../../Icons/snack.png")} />
-                <Text>Snacks</Text>
-              </View>
+            <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200">
+              <Image source={require("../../Icons/snack.png")} />
+              <Text>Snacks</Text>
+            </View>
             {/* ) : ( */}
-              {/* <></> */}
+            {/* <></> */}
             {/* )} */}
             {/* {props.val.night ? ( */}
-              <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200">
-                <Image source={require("../../Icons/christmas-dinner.png")} />
-                <Text>Dinner</Text>
-              </View>
+            <View className="flex flex-row justify-between items-center w-1/2 rounded-lg bg-blue-200">
+              <Image source={require("../../Icons/christmas-dinner.png")} />
+              <Text>Dinner</Text>
+            </View>
             {/* ) : ( */}
-              {/* <></> */}
+            {/* <></> */}
             {/* )} */}
           </View>
         </View>
