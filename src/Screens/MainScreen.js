@@ -10,6 +10,7 @@ import About from '../Sidebarpages/About';
 import Profile from '../Sidebarpages/Profile';
 import Service from '../Sidebarpages/Service';
 import Support from '../Sidebarpages/Support';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const Drawer = createDrawerNavigator();
@@ -43,7 +44,10 @@ const MainScreen = (props) => {
         },
         headerTitle: "",
         headerRight: () => (
+
           <Image source={require("../../Icons/menu.png")} className="mr-6 w-10 h-10" />
+
+
         ),
         headerLeft: () => (
           <Welcome />

@@ -8,6 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const Prescription = ({ navigation, setRootName }) => {
   const [PID, setPID] = useState("");
   const [pres, setPres] = useState({});
+
   const postData = async (e) => {
     e.preventDefault();
     try {
@@ -16,7 +17,7 @@ const Prescription = ({ navigation, setRootName }) => {
       }
 
       const res = await fetch(
-        "http://192.168.1.15:8000/getLatestPrescription",
+        "http://192.168.1.3:8000/getLatestPrescription",
         {
           method: "POST",
           headers: {
@@ -36,6 +37,7 @@ const Prescription = ({ navigation, setRootName }) => {
       console.log(err);
     }
   };
+
   return (
     <ScrollView>
       <View className="m-4 mt-2">
