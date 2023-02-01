@@ -55,12 +55,20 @@ const Introslider = ({ navigation }) => {
                     flex: 1,
                     backgroundColor: item.backgroundColor,
                     alignItems: 'center',
-                    justifyContent: 'space-around',
+                    justifyContent: "space-evenly",
                     paddingBottom: 100,
                 }}>
-                <Text style={styles.introTitleStyle} >{item.title}</Text>
-                <Image style={styles.introImageStyle} source={item.image} />
-                <Text style={styles.introTextStyle}>{item.text}</Text>
+                <View className="flex items-center space-y-4">
+                <View className="bg-rose-300 rounded-full relative">
+                    <Image className="z-50 w-80 h-80" source={item.image} />
+                    {/* <View className="h-10 w-10 bg-yellow-400 absolute top-0 right-16 rounded-full"></View> */}
+                    {/* <View className="h-20 w-20 bg-blue-700 absolute bottom-0 left-6 rounded-full"></View> */}
+                </View>
+                <View className="flex items-center w-80 space-y-6">
+                <Text className="text-4xl font-semibold tracking-widest text-center leading-12">{item.title}</Text>
+                <Text className="w-72 text-center text-xl">{item.text}</Text>
+                </View>
+                </View>
             </View>
         );
     };
@@ -123,6 +131,7 @@ const styles = StyleSheet.create({
         marginBottom: 30,
     },
     introTitleStyle: {
+        
         fontSize: 32,
         color: 'black',
         textAlign: 'center',
@@ -138,20 +147,20 @@ const styles = StyleSheet.create({
 const slides = [
     {
         key: 's1',
-        text: 'Choose what brother you and we will provide the solution',
+        text: 'Choose what bothers you and we will provide the solution',
         title: 'Personal Treatment Plan',
-        image: require('../../images/treatment1.gif'),
+        image: require('../../images/todo.png'),
     },
     {
         key: 's2',
-        title: 'Notification reminder',
-        text: 'plan ahead and we will remind you about your monthly or annual check-up',
+        title: 'Automatic reminders',
+        text: 'No need to remember the medicines as we will remind you',
         image: require('../../images/notification1.gif'),
     },
     {
         key: 's3',
-        title: 'Online Appoiment',
-        text: 'Swasthya is a Digital India initiative aims to provide online access to hospital services for for patient.',
+        title: 'Book Appointments',
+        text: 'Book your upcoming visit to clinic instantly by just few clicks',
         image: require('../../images/appoinment.gif'),
     },
 
