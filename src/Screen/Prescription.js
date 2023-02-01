@@ -4,13 +4,16 @@ import { View, Text, TextInput, StyleSheet, Image, Button } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Prescription = ({ navigation, setRootName }) => {
-  const [PID, setPID] = useState("");
+
+  const [PID, setPID] = useState();
   const [pres, setPres] = useState({});
 
-  const postData = async (e) => {
-    e.preventDefault();
+  const postData = async (pid) => {
+    // e.preventDefault();
+    setPID(pid);
     try {
       if (PID == null) {
         return;
@@ -26,23 +29,51 @@ const Prescription = ({ navigation, setRootName }) => {
           body: JSON.stringify({ PID }),
         }
       );
+
       const data = await res.json();
       if (res.status === 422 || !data) {
+
         console.log("data not found");
       } else {
-        console.log(data);
         setPres(data);
+        // console.log("data is:-");
+        // console.log(pres);
+        const jsonValue = JSON.stringify(data)
+        await AsyncStorage.setItem('userpres', jsonValue)
+
       }
     } catch (err) {
       console.log(err);
     }
   };
 
+  // get PID.......
+
+  const [user, setUser] = useState({})
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('user')
+      setUser(JSON.parse(jsonValue));
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  useEffect(() => {
+    getData() // for PID
+    postData(user.PID)
+  }, [])
+
+
+
+
   return (
     <ScrollView>
       <View className="m-4 mt-2">
         <View className="">
           <Text className="text-2xl text-slate-900 font-semibold">
+            {/* {user.PID} */}
             Your drug cabinet
           </Text>
           <View className="h-48 w-full flex flex-row items-center p-4 bg-gray-200 mt-4 rounded-3xl">

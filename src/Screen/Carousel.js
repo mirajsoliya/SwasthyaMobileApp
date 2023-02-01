@@ -12,19 +12,23 @@ import CarouselCards from "./CarouselCards";
 const { width, heigth } = Dimensions.get("window");
 let flatList;
 
-function infiniteScroll(dataList) {
+
+
+const infiniteScroll = async (dataList) => {
     const numberOfData = dataList.length;
     var scrollValue = 0,
         scrolled = 0;
-
-    setInterval(function () {
+    setInterval(async () => {
         scrolled++;
         if (scrolled < numberOfData) scrollValue = scrollValue + width
         else {
             scrollValue = 0;
             scrolled = 0;
         }
-        // this.flatList.scrollToOffset({ animated: true, offset: scrollValue });
+        if (flatList.scrollToOffset != null && dataList.length) {
+
+            // await flatList.scrollToOffset({ animated: true, offset: scrollValue });
+        }
 
     }, 3000);
 }
@@ -38,19 +42,20 @@ const Carousel = ({ data }) => {
     let position = Animated.divide(scrollX, width);
     const [dataList, setDataList] = useState(data);
 
-
-
     useEffect(() => {
         setDataList(data);
-        infiniteScroll(dataList);
-    });
+    }, []);
 
-    if (data && data.length) {
+    useEffect(() => {
+        infiniteScroll(dataList);
+    }, [dataList])
+
+    if (dataList && dataList.length) {
         return (
             <View>
                 <FlatList
-                    ref={(flatList) => {
-                        this.flatList = flatList
+                    ref={(flatList1) => {
+                        flatList = flatList1
                     }}
                     data={data}
                     keyExtractor={(item, index) => "key" + index}

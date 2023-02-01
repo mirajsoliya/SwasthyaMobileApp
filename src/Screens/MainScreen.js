@@ -11,7 +11,7 @@ import Profile from '../Sidebarpages/Profile';
 import Service from '../Sidebarpages/Service';
 import Support from '../Sidebarpages/Support';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import { DrawerActions } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
 
@@ -30,6 +30,8 @@ const Welcome = () => {
 }
 
 const MainScreen = (props) => {
+
+  const navigation = useNavigation();
   const { width } = useWindowDimensions();
   return (
     <Drawer.Navigator
@@ -38,15 +40,19 @@ const MainScreen = (props) => {
         headerShown: true,
         headerStyle: {
           backgroundColor: 'transparent',
-          height: 160,
+          height: 95,
           elevation: 0,
           shadowOpacity: 0,
         },
         headerTitle: "",
+
         headerRight: () => (
 
-          <Image source={require("../../Icons/menu.png")} className="mr-6 w-10 h-10" />
+          <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
 
+            <Image source={require("../../Icons/menu.png")} className="mr-6 w-8 h-8" />
+
+          </TouchableOpacity>
 
         ),
         headerLeft: () => (
