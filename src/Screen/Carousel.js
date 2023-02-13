@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
     View,
+    SafeAreaView,
     Text,
     StyleSheet,
     Dimensions,
@@ -52,7 +53,7 @@ const Carousel = ({ data }) => {
 
     if (dataList && dataList.length) {
         return (
-            <View>
+            <SafeAreaView>
                 <FlatList
                     ref={(flatList1) => {
                         flatList = flatList1
@@ -76,7 +77,7 @@ const Carousel = ({ data }) => {
                     )}
                 />
 
-                <View style={styles.dotView}>
+                <SafeAreaView style={styles.dotView}>
                     {data.map((_, i) => {
                         let opacity = position.interpolate({
                             inputRange: [i - 1, i, i + 1],
@@ -97,8 +98,8 @@ const Carousel = ({ data }) => {
                             />
                         );
                     })}
-                </View>
-            </View>
+                </SafeAreaView>
+            </SafeAreaView>
         );
     }
 
