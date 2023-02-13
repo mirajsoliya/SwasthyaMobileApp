@@ -8,12 +8,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Prescription = ({ navigation, setRootName }) => {
 
-  const [PID, setPID] = useState();
+  const [pid, setPID] = useState();
   const [pres, setPres] = useState({});
 
-  const postData = async (pid) => {
+  const postData = async () => {
     // e.preventDefault();
-    setPID(pid);
+    console.log("pid is");
+    console.log(pid);
+    const PID = pid;
     try {
       if (PID == null) {
         return;
@@ -39,6 +41,8 @@ const Prescription = ({ navigation, setRootName }) => {
         // console.log("data is:-");
         // console.log(pres);
         const jsonValue = JSON.stringify(data)
+        // console.log("user data after ending");
+        // console.log(data);
         await AsyncStorage.setItem('userpres', jsonValue)
 
       }
@@ -47,22 +51,25 @@ const Prescription = ({ navigation, setRootName }) => {
     }
   };
 
-  // get PID.......
-
+  // get PID......
   const [user, setUser] = useState({})
 
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('user')
+      // console.log("user data is");
+      // console.log(JSON.parse(jsonValue));
       setUser(JSON.parse(jsonValue));
-
+      // console.log("end of data");
     } catch (e) {
       console.log(e);
     }
   }
   useEffect(() => {
     getData() // for PID
-    postData(user.PID)
+    setPID(user.PID);
+    // console.log(pid);
+    postData();
   }, [])
 
 
