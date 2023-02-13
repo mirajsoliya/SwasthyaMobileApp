@@ -40,11 +40,13 @@ const MainScreen = (props) => {
         headerShown: true,
         headerStyle: {
           backgroundColor: 'transparent',
-          height: 95,
+          height: 120,
           elevation: 0,
           shadowOpacity: 0,
         },
+        drawerPosition:"right",
         headerTitle: "",
+        
 
         headerRight: () => (
 

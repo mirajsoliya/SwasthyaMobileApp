@@ -67,33 +67,34 @@ const BookAppoinment = ({ user, navigation }) => {
                 <Carousel data={dummydata} />
 
                 <View className="my-4">
-                    <Text className="text-lg font-medium">Schedules</Text>
-                    <View className="flex flex-row justify-center space-x-4">
-                        {
-                            date.map((val, idx) => {
-                                return (
-                                    <View key={idx} className="bg-white shadow-black shadow-lg flex-1 flex justify-center items-center p-2 rounded-lg">
-                                        <Text>{val.day}</Text>
-                                        <Text>{val.date.substring(3, 5)}</Text>
-                                    </View>
-                                )
-                            })
-                        }
-                    </View>
+        <Text className="text-lg font-medium">Schedules</Text>
+        <View className="flex flex-row space-x-4 justify-center my-2">
+            {
+                date.map((val,idx) => {
+                    return(
+                    <TouchableOpacity key={idx} onPress={()=> setDate(val.day)} className={`shadow-black shadow-2xl flex-1 flex items-center w-16 p-2 rounded-lg ${date1 === val.day ? "bg-blue-700" : "bg-gray-100"}`}>
+                        <Text className={`font-medium ${date1 === val.day ? "text-white" : "text-black"}`}>{val.day}</Text>
+                        <Text className={`font-medium ${date1 === val.day ? "text-white" : "text-black"}`}>{val.date.substring(3,5)}</Text>
+                    </TouchableOpacity>
+                    )
+                })
+            }
+        </View>
 
-                    <Text className="text-lg font-medium">Choose Time</Text>
-                    <View>
-                        {
-                            time.map((val, idx) => {
-                                return (
-                                    <View key={idx} className="shadow-lg">
-                                        <Text>{val}</Text>
-                                    </View>
-                                )
-                            })
-                        }
-                    </View>
-                </View>
+        <Text className="text-lg font-medium mb-4">Choose Time</Text>
+        <View className="flex flex-row flex-wrap gap-4">
+            {
+                time.map((val,idx) => {
+                    return(
+                        <TouchableOpacity key={idx} onPress={() => setTime(val)} style={[styles.button, time1 === val && styles.selected]}>
+                            <Text style={[styles.buttonLabel, time1 === val && styles.selectedLabel]}>{val}</Text>
+                        </TouchableOpacity>
+                    )
+                })
+            }
+        </View>
+      </View>
+      <TouchableHighlight onPress={postData} className="rounded-xl"><View className="p-2 rounded-xl bg-blue-700"><Text className="font-semibold text-white text-lg text-center">Book Appoinment</Text></View></TouchableHighlight>
             </View>
         </ScrollView>
     )
@@ -101,13 +102,33 @@ const BookAppoinment = ({ user, navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-
-    }
-
-});
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    selected: {
+      backgroundColor: '#1d4ed8',
+      borderWidth: 0,
+    },
+    selectedLabel: {
+      color: 'white',
+    },
+    buttonLabel: {
+      fontSize: 14,
+      fontWeight: '500',
+      color: 'black',
+    },
+    button: {
+      paddingHorizontal: 8,
+      paddingVertical: 6,
+      borderRadius: 8,
+      backgroundColor: '#f3f4f6',
+      alignSelf: 'flex-start',
+      textAlign: 'center',
+      width:115
+    },
+  
+  });
 
 
 export default BookAppoinment;

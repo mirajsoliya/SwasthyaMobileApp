@@ -16,34 +16,34 @@ const Loginpage = (props) => {
 
     const postData = async (e) => {
 
-        e.preventDefault();
-        const PatientID = pid;
-        const password1 = password;
-        const res = await fetch("http://192.168.1.3:8000/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "Application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({ PatientID, password1 })
-        });
+        // e.preventDefault();
+        // const PatientID = pid;
+        // const password1 = password;
+        // const res = await fetch("http://192.168.141.37:8000/login", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "Application/json"
+        //     },
+        //     credentials: "include",
+        //     body: JSON.stringify({ PatientID, password1 })
+        // });
 
-        const data = await res.json();
+        // const data = await res.json();
 
-        if (res.status === 400 || !data) {
-            console.log("Invalid details");
-        }
-        else {
-
-            setUser(data);
-            const jsonValue = JSON.stringify(data)
-            await AsyncStorage.setItem('user', jsonValue)
-            navigation.navigate("MainScreen");
-
-        }
-        // if (pid === '' && password === '') {
-        //     navigation.navigate("MainScreen");
+        // if (res.status === 400 || !data) {
+        //     console.log("Invalid details");
         // }
+        // else {
+
+        //     setUser(data);
+        //     const jsonValue = JSON.stringify(data)
+        //     await AsyncStorage.setItem('user', jsonValue)
+        //     navigation.navigate("MainScreen");
+
+        // }
+        if (pid === '' && password === '') {
+            navigation.navigate("MainScreen");
+        }
     }
 
 
