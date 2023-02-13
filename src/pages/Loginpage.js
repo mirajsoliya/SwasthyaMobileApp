@@ -16,17 +16,17 @@ const Loginpage = (props) => {
 
     const postData = async (e) => {
 
-        // e.preventDefault();
-        // const PatientID = pid;
-        // const password1 = password;
-        // const res = await fetch("http://192.168.141.37:8000/login", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "Application/json"
-        //     },
-        //     credentials: "include",
-        //     body: JSON.stringify({ PatientID, password1 })
-        // });
+        e.preventDefault();
+        const PatientID = pid;
+        const password1 = password;
+        const res = await fetch("http://192.168.1.15:8000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "Application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({ PatientID, password1 })
+        });
 
         // const data = await res.json();
 
