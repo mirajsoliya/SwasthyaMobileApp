@@ -15,7 +15,7 @@ import Introslider from './Introslider';
 import MainScreen from '../Screens/MainScreen';
 import Home from '../Screen/Home';
 import BookAppoinment from '../Screen/BookAppoinment';
-
+import Prescription from '../Screen/Prescription';
 
 const AppNavigator = ({ }) => {
 
@@ -46,6 +46,13 @@ const AppNavigator = ({ }) => {
 
                 <Stack.Screen name='MainScreen'>
                     {props => <MainScreen />}
+                </Stack.Screen>
+
+                <Stack.Screen name='BookAppoinment'>
+                    {props => <BookAppoinment />}
+                </Stack.Screen>
+                <Stack.Screen name='Prescription'>
+                    {props => <Prescription />}
                 </Stack.Screen>
 
             </Stack.Navigator>

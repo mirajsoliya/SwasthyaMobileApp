@@ -22,7 +22,7 @@ const Prescription = ({ navigation, setRootName }) => {
       }
 
       const res = await fetch(
-        "http://192.168.1.15:8000/getLatestPrescription",
+        "http://192.168.1.4:8000/getLatestPrescription",
         {
           method: "POST",
           headers: {
@@ -41,8 +41,9 @@ const Prescription = ({ navigation, setRootName }) => {
         // console.log("data is:-");
         // console.log(pres);
         const jsonValue = JSON.stringify(data)
-        // console.log("user data after ending");
-        // console.log(data);
+        console.log("user data after ending");
+        console.log(data);
+        console.log(pres.Medicines.length);
         await AsyncStorage.setItem('userpres', jsonValue)
 
       }
@@ -150,7 +151,8 @@ const Prescription = ({ navigation, setRootName }) => {
           </Text>
           <View className="flex flex-row">
             <Text className="font-medium text-sm text-slate-500">Today: </Text>
-            <Text className="text-sm text-slate-700 font-medium">3 medications</Text>
+            <Text className="text-sm text-slate-700 font-medium">  medications</Text>
+            {/* {pres.Medicines.length} */}
           </View>
           <View>
             {/* {pres.Medicines.map((val, idx) => {
@@ -158,13 +160,21 @@ const Prescription = ({ navigation, setRootName }) => {
                   <MedicineWidget val={val} idx={idx}/>
                 );
               })} */}
-            {[...Array(5)].map((val, idx) => {
-              return (
-                <View key={idx} className="my-2 p-4 rounded-3xl bg-gray-100">
-                  <MedicineWidget val={val} />
-                </View>
-              );
-            })}
+
+
+            {/* miraj */}
+            {/* 
+            {
+              pres.Medicines.map((item, index) => {
+                return (
+                  <View key={index} className="my-2 p-4 rounded-3xl bg-gray-100">
+                    <MedicineWidget val={item} />
+                  </View>
+                )
+              })} */}
+
+
+
           </View>
         </>
         {/* ) : ( */}
@@ -204,7 +214,7 @@ const MedicineWidget = (props) => {
           source={require("../../Icons/medicine.png")}
         />
         <Text className="capitalize text-xl font-semibold">
-          {/* {props.val.name} */}Lopamide
+          {props.val.name}
         </Text>
       </View>
       <View className="flex flex-row justify-center space-x-2 my-4">
@@ -213,7 +223,7 @@ const MedicineWidget = (props) => {
           <Text
             className={`font-medium`}
           >
-            {/* props.val.beaf ? "line-through" : "" */}
+            {/* {props.val.beaf ? "line-through" : ""} */}
             Before Eating
           </Text>
         </View>
