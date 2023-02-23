@@ -11,11 +11,34 @@ const Home = () => {
   //for user data....
 
   const [user, setUser] = useState({})
+  const [pres, setPres] = useState({});
 
-  const getData = async () => {
+
+  const getPrescribedData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('user')
-      setUser(JSON.parse(jsonValue));
+      const PID = JSON.parse(jsonValue).PID;
+      const res = await fetch(
+        "http://192.168.239.37:8000/getLatestPrescription",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "Application/json",
+          },
+          body: JSON.stringify({ PID }),
+        }
+      );
+
+      const data = await res.json();
+      if (res.status === 422 || !data) {
+        console.log("data not found");
+      } else {
+        setPres(data);
+        const jsonValue = JSON.stringify(data)
+        console.log(data);
+        console.log(pres.Medicines.length);
+        await AsyncStorage.setItem('userpres', jsonValue)
+      }
 
     } catch (e) {
       console.log(e);
@@ -23,7 +46,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    getData()
+    getPrescribedData()
   }, [])
 
 
@@ -44,10 +67,10 @@ const Home = () => {
 
   const handleNotification = async () => {
     try {
-      const jsonValue = await AsyncStorage.getItem('userpres')
+    //   const jsonValue = await AsyncStorage.getItem('userpres')
       console.log("data on home");
-      console.log(jsonValue);
-      setuserpres(JSON.parse(jsonValue));
+    //   console.log(jsonValue);
+      setuserpres(pres);
 
     } catch (e) {
       console.log(e);
@@ -109,8 +132,8 @@ const Home = () => {
       <View className="my-2 mx-6 mt-0">
         <View>
           <Text className="font-semibold text-lg">Upcoming consultations</Text>
-          <View className="bg-blue-700 p-4 rounded-3xl mt-2 mb-4 flex flex-row">
-            <View className="w-1/2">
+          <View className="bg-blue-700 relative p-4 rounded-3xl mt-2 mb-4">
+            <View className="-z-50">
               <View className="flex flex-row justify-between">
                 <View className="rounded-full border-2 border-white overflow-hidden">
                   <Image
@@ -129,7 +152,7 @@ const Home = () => {
                 Michael Simpson
               </Text>
             </View>
-            <View className="w-1/2 opacity-30">
+            <View className="absolute right-4 top-4 z-50">
               <Image
                 className="h-32 w-full object-contain"
                 source={require("../../images/stethoscope.png")}
@@ -174,12 +197,12 @@ const Home = () => {
           </Text>
 
           <View className=" bg-gray-300 p-4 rounded-3xl mt-2 mb-4  ">
-            {/* userpres.Medicines.length != 0 && loopnumber >= 0 ? */}
-            {/* {
-              userpres.Medicines.map((item, index) => (
+            {Object.keys(pres).length > 0 ? 
+            
+               pres.Medicines.map((item, index) => (
                 <Text className="font-semibold text-lg" key={index}>{item.name}</Text>
-              ))} */}
-            {/* : <Text>No Medicine</Text> */}
+              )) 
+            : <Text>No Medicine</Text>}
           </View>
 
 

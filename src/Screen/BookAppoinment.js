@@ -69,11 +69,11 @@ const BookAppoinment = ({ user, navigation }) => {
 
                     <View className="my-4">
                         <Text className="text-lg font-medium">Schedules</Text>
-                        <View className="flex flex-row space-x-4 justify-center my-2 w-full">
+                        <View className="flex flex-row space-x-4 justify-between my-2">
                             {
                                 date.map((val, idx) => {
                                     return (
-                                        <TouchableOpacity key={idx} onPress={() => setDate(val.day)} className={`shadow-black shadow-2xl flex-1 flex items-center basis-1/5 p-2 rounded-lg ${date1 === val.day ? "bg-blue-700" : "bg-gray-100"}`}>
+                                        <TouchableOpacity key={idx} onPress={() => setDate(val.day)} className={`shadow-black shadow-2xl flex-1 flex items-center justify-center basis-1/5 p-2 rounded-lg ${date1 === val.day ? "bg-blue-700" : "bg-gray-100"}`}>
                                             <Text className={`font-medium ${date1 === val.day ? "text-white" : "text-black"}`}>{val.day}</Text>
                                             <Text className={`font-medium ${date1 === val.day ? "text-white" : "text-black"}`}>{val.date.substring(3, 5)}</Text>
                                         </TouchableOpacity>

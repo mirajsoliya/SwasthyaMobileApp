@@ -1,5 +1,5 @@
 import { View, Text, useWindowDimensions, Button, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
@@ -12,17 +12,33 @@ import Service from '../Sidebarpages/Service';
 import Support from '../Sidebarpages/Support';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { DrawerActions } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
 
 const Welcome = () => {
+    const [username,setUserName] = useState("");
+    const getData = async () => {
+        try{
+            const name = await AsyncStorage.getItem('user');
+            if(name){
+                // console.log(JSON.parse(name).fname);
+                setUserName(JSON.parse(name).fname);
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+    useEffect(() => {
+        getData();
+    })
   return (
     <>
       <View className="flex flex-row items-center ml-6 space-x-2">
         <Image source={require("../../images/avatar.jpg")} className="h-12 w-12 rounded-full" />
         <View className="flex">
           <Text className="font-medium text-xs">Welcome back</Text>
-          <Text className="font-medium text-2xl">Ronaldo</Text>
+          <Text className="font-medium text-2xl">{username}</Text>
         </View>
       </View>
     </>

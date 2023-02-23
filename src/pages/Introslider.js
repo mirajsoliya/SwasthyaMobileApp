@@ -59,7 +59,7 @@ const Introslider = ({ navigation }) => {
                     paddingBottom: 100,
                 }}>
                 <View className="flex items-center space-y-4">
-                <View className="bg-rose-300 rounded-full relative">
+                <View className="rounded-full relative">
                     <Image className="z-50 w-80 h-80" source={item.image} />
                     {/* <View className="h-10 w-10 bg-yellow-400 absolute top-0 right-16 rounded-full"></View> */}
                     {/* <View className="h-20 w-20 bg-blue-700 absolute bottom-0 left-6 rounded-full"></View> */}
@@ -149,7 +149,7 @@ const slides = [
         key: 's1',
         text: 'Choose what bothers you and we will provide the solution',
         title: 'Personal Treatment Plan',
-        image: require('../../images/todo.png'),
+        image: require('../../images/treatment1.gif'),
     },
     {
         key: 's2',

@@ -7,70 +7,19 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Prescription = ({ navigation, setRootName }) => {
-
-  const [pid, setPID] = useState();
   const [pres, setPres] = useState({});
-
-  const postData = async () => {
-    // e.preventDefault();
-    console.log("pid is");
-    console.log(pid);
-    const PID = pid;
-    try {
-      if (PID == null) {
-        return;
-      }
-
-      const res = await fetch(
-        "http://192.168.1.4:8000/getLatestPrescription",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "Application/json",
-          },
-          body: JSON.stringify({ PID }),
-        }
-      );
-
-      const data = await res.json();
-      if (res.status === 422 || !data) {
-
-        console.log("data not found");
-      } else {
-        setPres(data);
-        // console.log("data is:-");
-        // console.log(pres);
-        const jsonValue = JSON.stringify(data)
-        console.log("user data after ending");
-        console.log(data);
-        console.log(pres.Medicines.length);
-        await AsyncStorage.setItem('userpres', jsonValue)
-
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // get PID......
-  const [user, setUser] = useState({})
 
   const getData = async () => {
     try {
-      const jsonValue = await AsyncStorage.getItem('user')
-      // console.log("user data is");
+      const jsonValue = await AsyncStorage.getItem('userpres')
       // console.log(JSON.parse(jsonValue));
-      setUser(JSON.parse(jsonValue));
-      // console.log("end of data");
+      setPres(JSON.parse(jsonValue));
     } catch (e) {
       console.log(e);
     }
   }
   useEffect(() => {
-    getData() // for PID
-    setPID(user.PID);
-    // console.log(pid);
-    postData();
+    getData() // for latest prescription
   }, [])
 
 
@@ -78,7 +27,7 @@ const Prescription = ({ navigation, setRootName }) => {
 
   return (
     <ScrollView>
-      <View className="m-4 mt-2">
+      <View className="m-4 mt-2 mb-20">
         <View className="">
           <Text className="text-2xl text-slate-900 font-semibold">
             {/* {user.PID} */}
@@ -144,42 +93,28 @@ const Prescription = ({ navigation, setRootName }) => {
           </View>
         </View>
 
-        {/* {Object.keys(pres).length > 0 ? ( */}
+        {Object.keys(pres).length > 0 ? (
         <>
           <Text className="font-semibold text-2xl mt-2">
             Daily Review
           </Text>
           <View className="flex flex-row">
             <Text className="font-medium text-sm text-slate-500">Today: </Text>
-            <Text className="text-sm text-slate-700 font-medium">  medications</Text>
+            <Text className="text-sm text-slate-700 font-medium"> {pres.Medicines.length} Medicines</Text>
             {/* {pres.Medicines.length} */}
           </View>
-          <View>
-            {/* {pres.Medicines.map((val, idx) => {
+          <View className="flex space-y-4 my-4">
+            {pres.Medicines.map((val, idx) => {
                 return (
-                  <MedicineWidget val={val} idx={idx}/>
+                    <View key={idx} className="rounded-xl bg-gray-50 p-4">
+                  <MedicineWidget val={val} idx={idx} />
+
+                    </View>
                 );
-              })} */}
-
-
-            {/* miraj */}
-            {/* 
-            {
-              pres.Medicines.map((item, index) => {
-                return (
-                  <View key={index} className="my-2 p-4 rounded-3xl bg-gray-100">
-                    <MedicineWidget val={item} />
-                  </View>
-                )
-              })} */}
-
-
-
+              })}
           </View>
-        </>
-        {/* ) : ( */}
-        {/* <></> */}
-        {/* )} */}
+          </>) : <></>
+        }
       </View>
     </ScrollView>
   );
@@ -204,7 +139,6 @@ const styles = StyleSheet.create({
 });
 
 const MedicineWidget = (props) => {
-  const [isActive, setisActive] = useState(false);
   return (
     <>
 
@@ -221,61 +155,49 @@ const MedicineWidget = (props) => {
         <View className="p-4 basis-1/2 flex-1 bg-gray-300 rounded-xl items-center flex flex-row justify-start space-x-2">
           <AntDesign name="doubleleft" size={18} color="black" />
           <Text
-            className={`font-medium`}
+            className={`font-medium ${props.val.beaf ? "line-through" : ""}`}
           >
-            {/* {props.val.beaf ? "line-through" : ""} */}
+            {/*  */}
             Before Eating
           </Text>
         </View>
         <View className="p-4 basis-1/2 flex-1 bg-gray-300 rounded-xl flex items-center flex-row justify-end space-x-2">
           <Text
-            className={`font-medium`}
+            className={`font-medium ${!props.val.beaf ? "line-through" : ""}`}
           >
-            {/* !props.val.beaf ? "line-through" : "" */}
+            {/*  */}
             After Eating
           </Text>
           <AntDesign name="doubleright" size={18} color="black" />
         </View>
       </View>
       {/* <Text>{}</Text>s */}
-      <View className="flex flex-row justify-center space-x-2">
-        {/* <View className="flex flex-row gap-x-2 w-full"> */}
-        {/* {props.val.morning ? ( */}
-        <View className="flex flex-col flex-1 items-center px-1 py-4 basis-1/4 rounded-xl bg-gray-300">
+      <View className="flex flex-row justify-between flex-wrap space-x-2">
+        {props.val.morning && (
+        <View className="flex flex-col items-center flex-1 px-1 py-4 basis-1/4 rounded-xl bg-gray-300">
           <Image className="w-12 h-12" source={require("../../Icons/breakfast.png")} />
           <Text className="font-medium">Breakfast</Text>
         </View>
-        {/* ) : ( */}
-        {/* <></> */}
-        {/* )} */}
-        {/* {props.val.afternoon ? ( */}
-        <View className="flex flex-col flex-1 items-center p-4 rounded-xl basis-1/4 bg-gray-300">
+        )}
+        {props.val.afternoon && (
+        <View className="flex flex-col items-center p-4 flex-1 rounded-xl basis-1/4  bg-gray-300">
           <Image className="w-12 h-12" source={require("../../Icons/fried-rice.png")} />
           <Text className="font-medium">Lunch</Text>
         </View>
-        {/* ) : ( */}
-        {/* <></> */}
-        {/* )} */}
-        {/* </View> */}
-        {/* <View className="flex flex-row gap-x-2 w-full"> */}
-        {/* {props.val.evening ? ( */}
-        <View className="flex flex-col flex-1 items-center py-4 px-2.5 rounded-xl basis-1/4 bg-gray-300">
+        )}
+        {props.val.evening && (
+        <View className="flex flex-col items-center py-4 px-2.5 flex-1 rounded-xl basis-1/4 bg-gray-300">
           <Image className="w-12 h-12" source={require("../../Icons/snack.png")} />
           <Text className="font-medium">Snacks</Text>
         </View>
-        {/* ) : ( */}
-        {/* <></> */}
-        {/* )} */}
-        {/* {props.val.night ? ( */}
-        <View className="flex flex-col flex-1 items-center p-4 rounded-xl basis-1/4 bg-gray-300">
+        )}
+        {props.val.night && (
+        <View className="flex flex-col items-center p-4 rounded-xl flex-1 bg-gray-300 basis-1/4">
           <Image className="w-12 h-12" source={require("../../Icons/dinner.png")} />
           <Text className="font-medium">Dinner</Text>
         </View>
-        {/* ) : ( */}
-        {/* <></> */}
-        {/* )} */}
+        )}
       </View>
-      {/* </View> */}
     </>
   );
 };
