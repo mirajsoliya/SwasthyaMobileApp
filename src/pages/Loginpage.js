@@ -1,25 +1,31 @@
-import React, { useEffect, useReducer } from "react";
-import { View, Text, StyleSheet, Image, TextInput, Button, Pressable, ScrollView, Alert } from "react-native";
-import img from '../../images/login1.gif'
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+    Touchable,
+    Text,
+    View,
+    Image,
+    TextInput,
+    Button,
+    TouchableOpacity,
+  } from "react-native";
+  import { Entypo } from "@expo/vector-icons";
+  import { useNavigation } from "@react-navigation/native";
+  import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+  
+  const Loginpage = (props) => {
+    const [pass, setPass] = useState(true);
+    const navigation = useNavigation();
 
-const Loginpage = (props) => {
-    const navigation = useNavigation()
-    const [passSet, setPassSet] = useState(false);
     const [pid, setPID] = useState("");
     const [password, setPassword] = useState("");
 
     const [user, setUser] = useState({});
 
     const postData = async (e) => {
-
-        e.preventDefault();
         const PatientID = pid;
         const password1 = password;
-        const res = await fetch("http://192.168.1.4:8000/login", {
+        console.log(PatientID + " "+ password);
+        const res = await fetch("http://192.168.239.37:8000/login", {
             method: "POST",
             headers: {
                 "Content-Type": "Application/json"
@@ -46,127 +52,71 @@ const Loginpage = (props) => {
         //     navigation.navigate("MainScreen");
         // }
     }
-
-
     var passEye;
-    if (passSet) {
-        passEye = <Icon name="visibility" style={{ marginTop: -38, marginRight: 10, marginLeft: 'auto' }} size={20} onPress={() => setPassSet(false)} />;
+    if (pass) {
+      passEye = (
+        <Entypo
+          name="eye-with-line"
+          style={{ position: "absolute", bottom: 48, right: 16 }}
+          size={20}
+          onPress={() => setPass(false)}
+        />
+      );
     } else {
-        passEye = <Icon name="visibility-off" style={{ marginTop: -38, marginRight: 10, marginLeft: 'auto' }} size={20} onPress={() => setPassSet(true)} />
+      passEye = (
+        <Entypo
+          name="eye"
+          style={{ position: "absolute", bottom: 48, right: 16 }}
+          size={20}
+          onPress={() => setPass(true)}
+        />
+      );
     }
-
-    React.useEffect(
-        () =>
-            navigation.addListener('beforeRemove', (e) => {
-
-                e.preventDefault();
-            }),
-        [navigation]
-    );
-
     return (
-        <ScrollView style={{ width: '100%' }}>
-            <Text style={styles.heading}>Swasthya</Text>
-            <View style={{ width: '100%', marginTop: 50 }}>
-                <View style={styles.imgContainer}>
-
-                    <Image
-                        source={img}
-                        style={styles.img}
-                    />
-                </View>
-                <View style={styles.maincontainer}>
-
-                    <View style={styles.inputcontainer}>
-                        <TextInput style={styles.inputstyle} placeholder="UserName" onChangeText={newText => setPID(newText)} />
-                    </View>
-                    <View style={styles.inputcontainer} >
-                        <TextInput style={styles.inputstyle} placeholder="Password" onChangeText={newText => setPassword(newText)} autoCapitalize="none" autoCorrect={false} secureTextEntry={!passSet} />
-                    </View>
-                    {passEye}
-                    <Pressable
-                        style={styles.submit}
-                        onPress={postData}
-                        underlayColor='#fff'
-                        android_ripple={{ color: '#fff' }}>
-                        <Text style={styles.submitText}>Log in</Text>
-                    </Pressable>
-                </View>
+      <>
+        <View className="bg-white mt-10 h-full">
+          <View className="h-2/5 w-screen flex items-center">
+          <Image
+            className="h-full w-3/4"
+            source={require("../../images/login1.gif")}
+          />
+          </View>
+          <View className="py-8 px-8">
+            <Text className="text-center text-2xl font-bold">Login Now</Text>
+            <Text className="mt-2 text-gray-400 text-center">
+              Please enter the details below to continue.
+            </Text>
+            <View className="relative flex space-y-4 my-8">
+              <TextInput
+                placeholder="patient id"
+                className="bg-gray-100 rounded-lg px-4 py-2"
+                onChangeText={(text) => setPID(text)}
+              />
+              <TextInput
+                placeholder="password"      
+                // secureTextEntry={pass}
+                onChangeText={text => setPassword(text)}
+                className="bg-gray-100 rounded-lg px-4 py-2"
+              />
+              {passEye}
+              <Text className="text-right text-sky-500 font-semibold">
+                Forgot Password?
+              </Text>
             </View>
-            {/* <Text>{user.fname}</Text> */}
-        </ScrollView>
+            <View className="flex space-y-4">
+              <TouchableOpacity
+                onPress={() => postData()}
+                className="rounded-full w-full py-4 bg-sky-400"
+              >
+                <Text className="text-center text-white font-medium">LOGIN</Text>
+              </TouchableOpacity>
 
+            </View>
+          </View>
+        </View>
+      </>
     );
-}
-
-export default Loginpage;
-
-const styles = StyleSheet.create({
-    main: {
-        marginBottom: '50%',
-    },
-    heading: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        marginTop: 60,
-        marginBottom: 'auto',
-        textAlign: 'center',
-    },
-    imgContainer: {
-
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 30,
-    },
-    img: {
-
-        height: 200,
-        width: 200,
-
-    },
-    maincontainer: {
-        width: "80%",
-        padding: 10,
-        paddingTop: -100,
-        marginTop: 40,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        alignItems: 'center',
-    },
-
-    inputcontainer:
-    {
-        margin: 10,
-        borderRadius: 5,
-        padding: 5,
-        backgroundColor: '#E7E6E0',
-        elevation: 8,
-        width: '100%',
-    },
-    buttonstyle: {
-        margin: 10,
-        padding: 5,
-
-    },
-    inputstyle: {
-        // color: '#fff',
-    },
-    submit: {
-        marginRight: 'auto',
-        marginLeft: 'auto',
-        width: '80%',
-        marginTop: 30,
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: '#1481D0',
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#fff',
-    },
-    submitText: {
-        color: '#fff',
-        textAlign: 'center',
-        fontSize: 15,
-        fontWeight: 'bold'
-    },
-});
+  };
+  
+  export default Loginpage;
+  
