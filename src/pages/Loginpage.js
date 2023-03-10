@@ -25,7 +25,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
         const PatientID = pid;
         const password1 = password;
         console.log(PatientID + " "+ password);
-        const res = await fetch("http://192.168.239.37:8000/login", {
+        const res = await fetch("http://192.168.43.94:8000/login", {
             method: "POST",
             headers: {
                 "Content-Type": "Application/json"
@@ -48,9 +48,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
             navigation.navigate("MainScreen");
 
         }
-        // if (pid === '' && password === '') {
-        //     navigation.navigate("MainScreen");
-        // }
     }
     var passEye;
     if (pass) {
@@ -94,7 +91,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
               />
               <TextInput
                 placeholder="password"      
-                // secureTextEntry={pass}
+                secureTextEntry={pass}
                 onChangeText={text => setPassword(text)}
                 className="bg-gray-100 rounded-lg px-4 py-2"
               />
@@ -105,7 +102,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
             </View>
             <View className="flex space-y-4">
               <TouchableOpacity
-                onPress={() => postData()}
+                onPress={() => navigation.navigate("MainScreen")}
                 className="rounded-full w-full py-4 bg-sky-400"
               >
                 <Text className="text-center text-white font-medium">LOGIN</Text>

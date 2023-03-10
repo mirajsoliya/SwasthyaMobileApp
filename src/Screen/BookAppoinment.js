@@ -5,16 +5,17 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { AntDesign } from "@expo/vector-icons";
 import Carousel from "./Carousel";
 import { dummydata } from "./Data";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const BookAppoinment = ({ user, navigation }) => {
     const dayArr = [
-        "Sun",
-        "Mon",
-        "Tue",
-        "Wed",
-        "Thr",
-        "Fri",
-        "Sat",
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
     ];
     const dateobj = {
         day: dayArr[new Date().getDay()],
@@ -54,29 +55,53 @@ const BookAppoinment = ({ user, navigation }) => {
         "20:00 - 20:30",
     ]
 
-    const postData = () => {
-        console.log("clicked");
+    const postData = async () => {
+        const {day,date} = date1;
+        const name = await AsyncStorage.getItem('user'); 
+        const {PID,fname,lname,mobile} = JSON.parse(name);
+        const time = time1;
+        console.log(date + " "+time);
+        try{
+            const res = await fetch("http://192.168.195.37:8000/bookapp",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"Application/json"
+                },
+                body:JSON.stringify({PID,fname,lname,mobile,day,date,time})
+            })
+            console.log('g');
+            const data = await res.json();
+            if(!data || res.status === 400 || res.status === 404){
+                console.log("Error: Appointment not booked");
+            }else{
+                console.log("Appointment booked successfully");
+            }
+        }catch(err){
+            console.log(err);
+        }
     }
 
-    const [date1, setDate] = useState("");
+    const [date1, setDate] = useState({});
     const [time1, setTime] = useState("");
 
     return (
         <SafeAreaView>
             <ScrollView>
-                <View className="m-4 mt-2">
+                <View className="m-4 mt-2 mb-20">
                     <Carousel data={dummydata} />
 
                     <View className="my-4">
                         <Text className="text-lg font-medium">Schedules</Text>
-                        <View className="flex flex-row space-x-4 justify-between my-2">
+                        <View className="flex flex-row space-x-2 justify-between my-2">
                             {
                                 date.map((val, idx) => {
                                     return (
-                                        <TouchableOpacity key={idx} onPress={() => setDate(val.day)} className={`shadow-black shadow-2xl flex-1 flex items-center justify-center basis-1/5 p-2 rounded-lg ${date1 === val.day ? "bg-blue-700" : "bg-gray-100"}`}>
-                                            <Text className={`font-medium ${date1 === val.day ? "text-white" : "text-black"}`}>{val.day}</Text>
-                                            <Text className={`font-medium ${date1 === val.day ? "text-white" : "text-black"}`}>{val.date.substring(3, 5)}</Text>
+                                        <View key={idx} className="flex-1 basis-1/5">
+                                        <TouchableOpacity onPress={() => setDate(val)} className={`p-2 rounded-lg ${date1.day === val.day ? "bg-blue-700 shadow-black shadow-2xl" : "bg-gray-100"}`}>
+                                            <Text className={`font-medium text-center ${date1.day === val.day ? "text-white" : "text-black"}`}>{val.day.substring(0,3)}</Text>
+                                            <Text className={`font-medium text-center ${date1.day === val.day ? "text-white" : "text-black"}`}>{val.date.substring(3, 5)}</Text>
                                         </TouchableOpacity>
+                                        </View>
                                     )
                                 })
                             }
