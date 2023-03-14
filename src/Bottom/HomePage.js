@@ -14,7 +14,7 @@ const Tabarr = [
     { route: 'Home', label: 'Home', type: Icon.MaterialCommunityIcons, activeIcon: 'home-variant', inActiveIcon: 'home-outline', component: Home },
     { route: 'BookAppoinment', label: 'BookAppoinment', type: Icon.MaterialCommunityIcons, activeIcon: 'calendar-month', inActiveIcon: 'calendar-month-outline', component: BookAppoinment },
     { route: 'Prescription', label: 'Prescription', type: Icon.MaterialCommunityIcons, activeIcon: 'book-open', inActiveIcon: 'book-open-outline', component: Prescription },
-    { route: 'Notification', label: 'Notification', type: Icon.MaterialCommunityIcons, activeIcon: 'alarm-light', inActiveIcon: 'alarm-light-outline', component: Notification },
+    { route: 'Notification', label: 'Notification', type: Icon.MaterialCommunityIcons, activeIcon: 'clipboard-plus-outline', component: Notification },
 
 ];
 
@@ -95,6 +95,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        
+
     }
 })

@@ -22,7 +22,7 @@ const Prescription = ({ navigation, setRootName }) => {
       }
 
       const res = await fetch(
-        "http://192.168.1.4:8000/getLatestPrescription",
+        "http://192.168.1.8:8000/getLatestPrescription",
         {
           method: "POST",
           headers: {

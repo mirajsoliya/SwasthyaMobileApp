@@ -19,7 +19,7 @@ const Loginpage = (props) => {
         e.preventDefault();
         const PatientID = pid;
         const password1 = password;
-        const res = await fetch("http://192.168.1.4:8000/login", {
+        const res = await fetch("http://192.168.1.8:8000/login", {
             method: "POST",
             headers: {
                 "Content-Type": "Application/json"
