@@ -74,7 +74,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
         <View className="bg-white mt-10 h-full">
           <View className="h-2/5 w-screen flex items-center">
           <Image
-            className="h-full w-3/4"
+            className="h-full w-full"
             source={require("../../images/login1.gif")}
           />
           </View>

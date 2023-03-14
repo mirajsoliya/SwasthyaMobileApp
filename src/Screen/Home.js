@@ -44,9 +44,33 @@ const Home = () => {
       console.log(e);
     }
   }
+  const [appoint,setAppoint] = useState({});
+  const getLatestAppoint = async () => {
+    console.log("nfj");
+    try{
+      const jsonValue = await AsyncStorage.getItem('user')
+        const PID = JSON.parse(jsonValue).PID;
+        const res = await fetch("http://192.168.1.18:8000/latestAppoint", {
+            method:"POST",
+            headers:{
+                "Content-Type":"Application/json"
+            },
+            body:JSON.stringify({PID})
+        })
+        const data = await res.json();
+        if(data){
+            setAppoint(data);
+        }else{
+            console.log("No data found");
+        }
+    }catch(err){
+        console.log(err);
+    }
+  }
 
   useEffect(() => {
-    getPrescribedData()
+    getPrescribedData();
+    getLatestAppoint();
   }, [])
 
 
@@ -132,35 +156,39 @@ const Home = () => {
       <View className="my-2 mx-6 mt-0">
         <View>
           <Text className="font-semibold text-lg">Upcoming consultations</Text>
-          <View className="bg-blue-700 relative p-4 rounded-3xl mt-2 mb-4">
-            <View className="-z-50">
+          <View className="bg-blue-700 p-4 relative rounded-3xl mt-2 mb-4">
+            {Object.keys(appoint).length > 0 ? 
+            <>
+            <View className="flex justify-between">
               <View className="flex flex-row justify-between">
                 <View className="rounded-full border-2 border-white overflow-hidden">
                   <Image
-                    className="w-10 h-10"
+                    className="w-14 h-14"
                     source={require("../../images/avatar.jpg")}
                   />
                 </View>
                 <View>
                   <Text className="text-white font-medium text-sm">
-                    10:00 AM
+                    {appoint.time}
                   </Text>
-                  <Text className="text-white font-medium text-sm">Jan 31</Text>
+                  <Text className="text-white font-medium text-sm">{appoint.date}</Text>
                 </View>
               </View>
-              <Text className="mt-4 text-white font-medium text-xl w-24">
-                Michael Simpson
+              <Text className="mt-4 text-white font-medium text-xl">
+                {appoint.drname}
               </Text>
             </View>
-            <View className="absolute right-4 top-4 z-50">
+            <View className="w-1/2 z-50 absolute right-20 -top-1 opacity-30 -rotate-45">
               <Image
-                className="h-32 w-full object-contain"
+                className=""
                 source={require("../../images/stethoscope.png")}
               />
             </View>
-          </View>
+</>  : <><Text>No Appoinment</Text></>
+            }
+            </View>
+            </View>
 
-        </View>
         <View>
           <Text className="font-semibold text-lg">
             What are you looking for?
@@ -202,14 +230,14 @@ const Home = () => {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate("Prescription")} className="p-4 border-2 border-sky-400 flex flex-1 basis-1/2 items-center rounded-2xl">
+            <TouchableOpacity onPress={() => navigation.navigate("Profile")} className="p-4 border-2 border-sky-400 flex flex-1 basis-1/2 items-center rounded-2xl">
               <Image
-                className="h-14 w-14"
-                source={require("../../images/diagnostic.png")}
+                className="h-16 w-16"
+                source={require("../../images/man.png")}
               />
-              <Text className="mt-4 text-md font-semibold">Diagnostics</Text>
+              <Text className="mt-4 text-md font-semibold">Profile</Text>
               <Text className="text-md text-slate-700 font-medium">
-                Check Prescription
+                View profile
               </Text>
             </TouchableOpacity>
           </View>

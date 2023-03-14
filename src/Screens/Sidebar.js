@@ -4,7 +4,7 @@ import { FlatList } from 'react-native-gesture-handler'
 
 const Sidebar = ({ navigation }) => {
   return (
-    <View style={{ flex: 1, backgroundColor: '#c4b5fd' }}>
+    <View style={{ flex: 1, backgroundColor: '#3b82f6' }}>
 
       <Image
         source={require('../../Icons/user.png')}

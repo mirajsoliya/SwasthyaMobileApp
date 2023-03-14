@@ -149,7 +149,7 @@ const Notification = ({ navigation, setRootName }) => {
     const submitdata = async () => {
 
         const res = await fetch(
-            "http://192.168.1.8:8000/pythondadta",
+            "http://192.168.1.18:8000/pythondadta",
             {
                 method: "POST",
                 headers: {
@@ -168,7 +168,7 @@ const Notification = ({ navigation, setRootName }) => {
 
     return (
         <View className="mx-5 ">
-
+            <Text className="font-medium text-xl mb-2">Your Disease predictor</Text>
             <MultipleSelectList
                 className="mx-3"
                 setSelected={(val) => setSelected(val)}
@@ -176,11 +176,12 @@ const Notification = ({ navigation, setRootName }) => {
                 save="value"
                 // onSelect={() => alert(selected)}
                 label="Categories"
+                searchPlaceholder='Select Prediction'
             />
             <TouchableOpacity
                 onPress={submitdata}
-                className="bg-blue-500 w-1/3 text-center rounded-2xl py-3 mx-auto mt-3"
-            ><Text className="text-center font-bold text-white">Submit</Text>
+                className="bg-blue-600 w-1/2 text-center rounded-2xl py-3 mx-auto mt-3"
+            ><Text className="text-center font-bold text-white">Predict Disease</Text>
             </TouchableOpacity>
             <View style={styles.centeredView}>
                 <Modal
@@ -274,6 +275,4 @@ const styles = StyleSheet.create({
     },
 });
 
-
 export default Notification;
-

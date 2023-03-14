@@ -1,6 +1,6 @@
 import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { View, SafeAreaView, Text, StyleSheet, Image, Pressable, ScrollView, Button, TouchableHighlight } from "react-native";
+import { View, SafeAreaView, Text, StyleSheet, Image, Pressable, ScrollView, Button, Modal,TouchableHighlight } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { AntDesign } from "@expo/vector-icons";
 import Carousel from "./Carousel";
@@ -42,6 +42,8 @@ const BookAppoinment = ({ user, navigation }) => {
         date: new Date(Date.now() + (86400000 * 4)).toLocaleDateString()
     }]
 
+    const [modalVisible, setModalVisible] = useState(false);
+
     const time = [
         "10:00 - 11:00",
         "11:00 - 12:00",
@@ -75,7 +77,7 @@ const BookAppoinment = ({ user, navigation }) => {
                 console.log("Error: Appointment not booked");
             }else{
                 console.log("Appointment booked successfully");
-                window.alert("fhghg");
+                setModalVisible(true);
             }
         }catch(err){
             console.log(err);
@@ -113,8 +115,8 @@ const BookAppoinment = ({ user, navigation }) => {
                             {
                                 time.map((val, idx) => {
                                     return (
-                                        <TouchableOpacity key={idx} onPress={() => setTime(val)} style={[styles.button, time1 === val && styles.selected]}>
-                                            <Text style={[styles.buttonLabel, time1 === val && styles.selectedLabel]}>{val}</Text>
+                                        <TouchableOpacity key={idx} onPress={() => setTime(val)} className={`p-2 rounded-lg ${time1 === val ? "bg-blue-700 shadow-black shadow-2xl" : "bg-gray-100"}`}>
+                                            <Text className={`font-medium text-center ${time1 === val ? "text-white" : "text-black"}`}>{val}</Text>
                                         </TouchableOpacity>
                                     )
                                 })
@@ -122,6 +124,30 @@ const BookAppoinment = ({ user, navigation }) => {
                         </View>
                     </View>
                     <TouchableHighlight onPress={postData} className="rounded-xl"><View className="p-2 rounded-xl bg-blue-700"><Text className="font-semibold text-white text-lg text-center">Book Appoinment</Text></View></TouchableHighlight>
+                    <View style={styles.centeredView}>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert('Modal has been closed.');
+                        setModalVisible(!modalVisible);
+                    }}>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Appoinment Booked successfully</Text>
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => {
+                                    setModalVisible(!modalVisible)
+                                }
+                                }>
+                                <Text style={styles.textStyle}>ok</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </Modal>
+            </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -154,7 +180,51 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         textAlign: 'center',
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
 
+
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+    },
+    buttonOpen: {
+        backgroundColor: '#F194FF',
+    },
+    buttonClose: {
+        backgroundColor: '#2196F3',
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        width: 35,
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
 });
 
 
