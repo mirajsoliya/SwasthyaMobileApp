@@ -62,7 +62,7 @@ const BookAppoinment = ({ user, navigation }) => {
         const time = time1;
         console.log(date + " "+time);
         try{
-            const res = await fetch("http://192.168.195.37:8000/bookapp",{
+            const res = await fetch("http://192.168.1.18:8000/bookapp",{
                 method:"POST",
                 headers:{
                     "Content-Type":"Application/json"
@@ -75,6 +75,7 @@ const BookAppoinment = ({ user, navigation }) => {
                 console.log("Error: Appointment not booked");
             }else{
                 console.log("Appointment booked successfully");
+                window.alert("fhghg");
             }
         }catch(err){
             console.log(err);

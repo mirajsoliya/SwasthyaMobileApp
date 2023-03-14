@@ -19,7 +19,7 @@ const Home = () => {
       const jsonValue = await AsyncStorage.getItem('user')
       const PID = JSON.parse(jsonValue).PID;
       const res = await fetch(
-        "http://192.168.195.37:8000/getLatestPrescription",
+        "http://192.168.1.18:8000/getLatestPrescription",
         {
           method: "POST",
           headers: {
@@ -165,7 +165,7 @@ const Home = () => {
           <Text className="font-semibold text-lg">
             What are you looking for?
           </Text>
-          <View className="flex flex-row justify-between space-x-4 mt-2">
+          <View className="flex flex-row justify-between space-x-4 my-2">
 
             <TouchableOpacity onPress={() => navigation.navigate("BookAppoinment")} className="p-4 border-2 border-sky-400 flex-1 flex basis-1/2 items-center rounded-2xl">
               <Image
@@ -175,6 +175,30 @@ const Home = () => {
               <Text className="mt-4 text-md font-semibold">Doctor</Text>
               <Text className="text-md text-slate-700 font-medium">
                 Book Appoinment
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate("Prescription")} className="p-4 border-2 border-sky-400 flex flex-1 basis-1/2 items-center rounded-2xl">
+              <Image
+                className="h-14 w-14"
+                source={require("../../images/diagnostic.png")}
+              />
+              <Text className="mt-4 text-md font-semibold">Diagnostics</Text>
+              <Text className="text-md text-slate-700 font-medium">
+                Check Prescription
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View className="flex flex-row justify-between space-x-4 mt-2">
+
+            <TouchableOpacity onPress={() => navigation.navigate("Notification")} className="p-2 pt-4 border-2 border-sky-400 flex-1 flex basis-1/2 items-center rounded-2xl">
+              <Image
+                className="h-14 w-14"
+                source={require("../../images/pneumonia.png")}
+              />
+              <Text className="mt-4 text-md font-semibold">Disease Predictor</Text>
+              <Text className="text-md text-slate-700 font-medium">
+                Predict your disease
               </Text>
             </TouchableOpacity>
 

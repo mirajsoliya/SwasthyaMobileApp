@@ -14,7 +14,7 @@ const Tabarr = [
     { route: 'Home', label: 'Home', type: Icon.MaterialCommunityIcons, activeIcon: 'home-variant', inActiveIcon: 'home-outline', component: Home },
     { route: 'BookAppoinment', label: 'BookAppoinment', type: Icon.MaterialCommunityIcons, activeIcon: 'calendar-month', inActiveIcon: 'calendar-month-outline', component: BookAppoinment },
     { route: 'Prescription', label: 'Prescription', type: Icon.MaterialCommunityIcons, activeIcon: 'book-open', inActiveIcon: 'book-open-outline', component: Prescription },
-    { route: 'Notification', label: 'Notification', type: Icon.MaterialCommunityIcons, activeIcon: 'alarm-light', inActiveIcon: 'alarm-light-outline', component: Notification },
+    { route: 'Notification', label: 'Notification', type: Icon.MaterialCommunityIcons, activeIcon: 'clipboard-plus', inActiveIcon: 'clipboard-plus-outline', component: Notification },
 
 ];
 
@@ -28,10 +28,10 @@ const TabButton = (props) => {
 
     useEffect(() => {
         if (focused) {
-            viewRef.current.animate({ 0: { scale: .5, rotate: '0deg' }, 1: { scale: 1.5, rotate: '360deg' } })
+            viewRef.current.animate({ 0: { scale: .5 }, 1: { scale: 1.5 } })
         }
         else {
-            viewRef.current.animate({ 0: { scale: 1.5, rotate: '360deg' }, 1: { scale: 1, rotate: '0deg' } })
+            viewRef.current.animate({ 0: { scale: 1.5}, 1: { scale: 1} })
         }
     }, [focused])
 
@@ -44,7 +44,7 @@ const TabButton = (props) => {
                 ref={viewRef}
                 duration={1500}
                 style={styles.container}>
-                <Icon type={item.type} name={item.activeIcon} style={focused ? { color: '#a855f7', borderRadius: 50, padding: 5, textAlign: 'center', backgroundColor: '#ddd6fe' } : { color: '#a855f7' }} size={20} />
+                <Icon type={item.type} name={item.activeIcon} style={focused ? { color: '#2563eb', borderRadius: 50, padding: 5, textAlign: 'center', backgroundColor: '#bfdbfe' } : { color: '#2563eb' }} size={20} />
             </Animatable.View>
         </Pressable>
     )

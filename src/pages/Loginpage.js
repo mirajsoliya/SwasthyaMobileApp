@@ -25,7 +25,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
         const PatientID = pid;
         const password1 = password;
         console.log(PatientID + " "+ password);
-        const res = await fetch("http://192.168.43.94:8000/login", {
+        const res = await fetch("http://192.168.1.18:8000/login", {
             method: "POST",
             headers: {
                 "Content-Type": "Application/json"
