@@ -1,37 +1,37 @@
 export const dummydata = [
     {
         id: 1,
-        doctor: "Aenean leo",
+        doctor: "Dr.Ronak Shah",
         specialist: "Neurologist",
-        place: "Los Angeles, US",
+        place: "Gujarat,India",
         star: "5 Star"
 
     },
     {
         id: 2,
-        doctor: "Aenean leo",
-        specialist: "Neurologist",
-        place: "Los Angeles, US",
-        star: "5 Star"
+        doctor: "Dr.Hetal Prajapati",
+        specialist: "Dentist",
+        place: "Gujarat,India",
+        star: "4 Star"
     },
     {
         id: 3,
-        doctor: "Aenean leo",
-        specialist: "Neurologist",
-        place: "Los Angeles, US",
+        doctor: "Dr.Raj Navadiya",
+        specialist: "M.D",
+        place: "Gujarat,India",
         star: "5 Star"
     },
     {
         id: 4,
-        doctor: "Aenean leo",
-        specialist: "Neurologist",
-        place: "Los Angeles, US",
-        star: "5 Star"
+        doctor: "Dr.Keval Patel",
+        specialist: "Surgeon",
+        place: "Gujarat,India",
+        star: "4 Star"
     }, {
         id: 5,
-        doctor: "Aenean leo",
-        specialist: "Neurologist",
-        place: "Los Angeles, US",
+        doctor: "Dr.Kaushik Raval",
+        specialist: "Orthologist",
+        place: "Gujarat,India",
         star: "5 Star"
     },
 ];

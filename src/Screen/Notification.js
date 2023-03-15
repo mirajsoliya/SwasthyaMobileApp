@@ -149,7 +149,7 @@ const Notification = ({ navigation, setRootName }) => {
     const submitdata = async () => {
 
         const res = await fetch(
-            "http://192.168.1.18:8000/pythondadta",
+            "http://192.168.1.8:8000/pythondadta",
             {
                 method: "POST",
                 headers: {
@@ -162,6 +162,8 @@ const Notification = ({ navigation, setRootName }) => {
         const data = await res.json()
         setPred(data.data);
         console.log(pred);
+        setSelected([]);
+        console.log(selected);
         setModalVisible(true)
 
     }

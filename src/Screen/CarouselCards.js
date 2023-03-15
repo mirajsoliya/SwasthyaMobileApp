@@ -14,8 +14,8 @@ const { width, height } = Dimensions.get("window");
 
 const CarouselCards = ({ item }) => {
   return (
-    <View className="bg-blue-700 mx-4 rounded-3xl p-6">
-      <View className="flex flex-row justify-between">
+    <View className="bg-blue-700 mx-4 w-80 rounded-3xl p-6">
+      <View className="flex flex-row justify-between space-x-8">
         <View className="basis-1/3">
           <Image
             source={require("../../images/avatar.jpg")}

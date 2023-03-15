@@ -1,6 +1,6 @@
 import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { View, SafeAreaView, Text, StyleSheet, Image, Pressable, ScrollView, Button, Modal,TouchableHighlight } from "react-native";
+import { View, SafeAreaView, Text, StyleSheet, Image, Pressable, ScrollView, Button, Modal, TouchableHighlight } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { AntDesign } from "@expo/vector-icons";
 import Carousel from "./Carousel";
@@ -58,28 +58,28 @@ const BookAppoinment = ({ user, navigation }) => {
     ]
 
     const postData = async () => {
-        const {day,date} = date1;
-        const name = await AsyncStorage.getItem('user'); 
-        const {PID,fname,lname,mobile} = JSON.parse(name);
+        const { day, date } = date1;
+        const name = await AsyncStorage.getItem('user');
+        const { PID, fname, lname, mobile } = JSON.parse(name);
         const time = time1;
-        console.log(date + " "+time);
-        try{
-            const res = await fetch("http://192.168.1.18:8000/bookapp",{
-                method:"POST",
-                headers:{
-                    "Content-Type":"Application/json"
+        console.log(date + " " + time);
+        try {
+            const res = await fetch("http://192.168.1.8:8000/bookapp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "Application/json"
                 },
-                body:JSON.stringify({PID,fname,lname,mobile,day,date,time})
+                body: JSON.stringify({ PID, fname, lname, mobile, day, date, time })
             })
             console.log('g');
             const data = await res.json();
-            if(!data || res.status === 400 || res.status === 404){
+            if (!data || res.status === 400 || res.status === 404) {
                 console.log("Error: Appointment not booked");
-            }else{
+            } else {
                 console.log("Appointment booked successfully");
                 setModalVisible(true);
             }
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
     }
@@ -100,10 +100,10 @@ const BookAppoinment = ({ user, navigation }) => {
                                 date.map((val, idx) => {
                                     return (
                                         <View key={idx} className="flex-1 basis-1/5">
-                                        <TouchableOpacity onPress={() => setDate(val)} className={`p-2 rounded-lg ${date1.day === val.day ? "bg-blue-700 shadow-black shadow-2xl" : "bg-gray-100"}`}>
-                                            <Text className={`font-medium text-center ${date1.day === val.day ? "text-white" : "text-black"}`}>{val.day.substring(0,3)}</Text>
-                                            <Text className={`font-medium text-center ${date1.day === val.day ? "text-white" : "text-black"}`}>{val.date.substring(3, 5)}</Text>
-                                        </TouchableOpacity>
+                                            <TouchableOpacity onPress={() => setDate(val)} className={`p-2 rounded-lg ${date1.day === val.day ? "bg-blue-700 shadow-black shadow-2xl" : "bg-gray-100"}`}>
+                                                <Text className={`font-medium text-center ${date1.day === val.day ? "text-white" : "text-black"}`}>{val.day.substring(0, 3)}</Text>
+                                                <Text className={`font-medium text-center ${date1.day === val.day ? "text-white" : "text-black"}`}>{val.date.substring(3, 5)}</Text>
+                                            </TouchableOpacity>
                                         </View>
                                     )
                                 })
@@ -125,29 +125,29 @@ const BookAppoinment = ({ user, navigation }) => {
                     </View>
                     <TouchableHighlight onPress={postData} className="rounded-xl"><View className="p-2 rounded-xl bg-blue-700"><Text className="font-semibold text-white text-lg text-center">Book Appoinment</Text></View></TouchableHighlight>
                     <View style={styles.centeredView}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert('Modal has been closed.');
-                        setModalVisible(!modalVisible);
-                    }}>
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <Text style={styles.modalText}>Appoinment Booked successfully</Text>
-                            <Pressable
-                                style={[styles.button, styles.buttonClose]}
-                                onPress={() => {
-                                    setModalVisible(!modalVisible)
-                                }
-                                }>
-                                <Text style={styles.textStyle}>ok</Text>
-                            </Pressable>
-                        </View>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => {
+                                Alert.alert('Modal has been closed.');
+                                setModalVisible(!modalVisible);
+                            }}>
+                            <View style={styles.centeredView}>
+                                <View style={styles.modalView}>
+                                    <Text style={styles.modalText}>Appoinment Booked successfully</Text>
+                                    <Pressable
+                                        style={[styles.button, styles.buttonClose]}
+                                        onPress={() => {
+                                            setModalVisible(!modalVisible)
+                                        }
+                                        }>
+                                        <Text style={styles.textStyle}>ok</Text>
+                                    </Pressable>
+                                </View>
+                            </View>
+                        </Modal>
                     </View>
-                </Modal>
-            </View>
                 </View>
             </ScrollView>
         </SafeAreaView>

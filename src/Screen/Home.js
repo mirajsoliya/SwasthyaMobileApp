@@ -19,7 +19,7 @@ const Home = () => {
       const jsonValue = await AsyncStorage.getItem('user')
       const PID = JSON.parse(jsonValue).PID;
       const res = await fetch(
-        "http://192.168.1.18:8000/getLatestPrescription",
+        "http://192.168.1.8:8000/getLatestPrescription",
         {
           method: "POST",
           headers: {
@@ -44,27 +44,27 @@ const Home = () => {
       console.log(e);
     }
   }
-  const [appoint,setAppoint] = useState({});
+  const [appoint, setAppoint] = useState({});
   const getLatestAppoint = async () => {
     console.log("nfj");
-    try{
+    try {
       const jsonValue = await AsyncStorage.getItem('user')
-        const PID = JSON.parse(jsonValue).PID;
-        const res = await fetch("http://192.168.1.18:8000/latestAppoint", {
-            method:"POST",
-            headers:{
-                "Content-Type":"Application/json"
-            },
-            body:JSON.stringify({PID})
-        })
-        const data = await res.json();
-        if(data){
-            setAppoint(data);
-        }else{
-            console.log("No data found");
-        }
-    }catch(err){
-        console.log(err);
+      const PID = JSON.parse(jsonValue).PID;
+      const res = await fetch("http://192.168.1.8:8000/latestAppoint", {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/json"
+        },
+        body: JSON.stringify({ PID })
+      })
+      const data = await res.json();
+      if (data) {
+        setAppoint(data);
+      } else {
+        console.log("No data found");
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -91,9 +91,9 @@ const Home = () => {
 
   const handleNotification = async () => {
     try {
-    //   const jsonValue = await AsyncStorage.getItem('userpres')
+      //   const jsonValue = await AsyncStorage.getItem('userpres')
       console.log("data on home");
-    //   console.log(jsonValue);
+      //   console.log(jsonValue);
       setuserpres(pres);
 
     } catch (e) {
@@ -153,41 +153,41 @@ const Home = () => {
 
   return (
     <ScrollView>
-      <View className="my-2 mx-6 mt-0">
+      <View className="my-2 mb-20 mx-6 mt-0">
         <View>
           <Text className="font-semibold text-lg">Upcoming consultations</Text>
           <View className="bg-blue-700 p-4 relative rounded-3xl mt-2 mb-4">
-            {Object.keys(appoint).length > 0 ? 
-            <>
-            <View className="flex justify-between">
-              <View className="flex flex-row justify-between">
-                <View className="rounded-full border-2 border-white overflow-hidden">
+            {Object.keys(appoint).length > 0 ?
+              <>
+                <View className="flex justify-between">
+                  <View className="flex flex-row justify-between">
+                    <View className="rounded-full border-2 border-white overflow-hidden">
+                      <Image
+                        className="w-14 h-14"
+                        source={require("../../images/avatar.jpg")}
+                      />
+                    </View>
+                    <View>
+                      <Text className="text-white font-medium text-sm">
+                        {appoint.time}
+                      </Text>
+                      <Text className="text-white font-medium text-sm">{appoint.date}</Text>
+                    </View>
+                  </View>
+                  <Text className="mt-4 text-white font-medium text-xl">
+                    {appoint.drname}
+                  </Text>
+                </View>
+                <View className="w-1/2 z-50 absolute right-20 -top-1 opacity-30 -rotate-45">
                   <Image
-                    className="w-14 h-14"
-                    source={require("../../images/avatar.jpg")}
+                    className=""
+                    source={require("../../images/stethoscope.png")}
                   />
                 </View>
-                <View>
-                  <Text className="text-white font-medium text-sm">
-                    {appoint.time}
-                  </Text>
-                  <Text className="text-white font-medium text-sm">{appoint.date}</Text>
-                </View>
-              </View>
-              <Text className="mt-4 text-white font-medium text-xl">
-                {appoint.drname}
-              </Text>
-            </View>
-            <View className="w-1/2 z-50 absolute right-20 -top-1 opacity-30 -rotate-45">
-              <Image
-                className=""
-                source={require("../../images/stethoscope.png")}
-              />
-            </View>
-</>  : <><Text>No Appoinment</Text></>
+              </> : <><Text>No Appoinment</Text></>
             }
-            </View>
-            </View>
+          </View>
+        </View>
 
         <View>
           <Text className="font-semibold text-lg">
@@ -249,12 +249,12 @@ const Home = () => {
           </Text>
 
           <View className=" bg-gray-300 p-4 rounded-3xl mt-2 mb-4  ">
-            {Object.keys(pres).length > 0 ? 
-            
-               pres.Medicines.map((item, index) => (
+            {Object.keys(pres).length > 0 ?
+
+              pres.Medicines.map((item, index) => (
                 <Text className="font-semibold text-lg" key={index}>{item.name}</Text>
-              )) 
-            : <Text>No Medicine</Text>}
+              ))
+              : <Text>No Medicine</Text>}
           </View>
 
 
