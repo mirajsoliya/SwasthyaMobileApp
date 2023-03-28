@@ -6,12 +6,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Sidebar = ({ navigation }) => {
   const [username, setUserName] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
   const getData = async () => {
     try {
       const name = await AsyncStorage.getItem('user');
       if (name) {
         console.log(JSON.parse(name));
         setUserName(JSON.parse(name).fname);
+        setAvatarUrl(JSON.parse(name).url);
       }
     } catch (err) {
       console.log(err);
@@ -23,12 +25,13 @@ const Sidebar = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: '#2563eb' }}>
 
+
       <Image
-        source={require('../../images/avatar.jpg')}
+        source={{ uri: avatarUrl }}
         style={{ marginTop: 50, borderRadius: 50, alignSelf: 'center', width: 80, height: 80 }}
 
       />
-      <Text style={{ fontSize: 20, fontWeight: '600', alignSelf: 'center', marginTop: 20 }}>{username}</Text>
+      <Text style={{ fontSize: 20, fontWeight: '600', alignSelf: 'center', marginTop: 20, color: "white" }}>{username}</Text>
 
       <View style={{ marginTop: 50, width: '100%' }}>
         <FlatList style={{ marginHorizontal: 20 }}

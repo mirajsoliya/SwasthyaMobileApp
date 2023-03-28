@@ -19,7 +19,7 @@ const Home = () => {
       const jsonValue = await AsyncStorage.getItem('user')
       const PID = JSON.parse(jsonValue).PID;
       const res = await fetch(
-        "http://192.168.1.8:8000/getLatestPrescription",
+        "http://192.168.55.3:8000/getLatestPrescription",
         {
           method: "POST",
           headers: {

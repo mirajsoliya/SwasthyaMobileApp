@@ -25,7 +25,7 @@ const Loginpage = (props) => {
     const PatientID = pid;
     const password1 = password;
     console.log(PatientID + " " + password);
-    const res = await fetch("http://192.168.1.8:8000/login", {
+    const res = await fetch("http://192.168.55.3:8000/login", {
       method: "POST",
       headers: {
         "Content-Type": "Application/json"
@@ -102,7 +102,7 @@ const Loginpage = (props) => {
           </View>
           <View className="flex space-y-4">
             <TouchableOpacity
-              onPress={() => navigation.navigate("MainScreen")}
+              onPress={postData}
               className="rounded-full w-full py-4 bg-sky-400"
             >
               <Text className="text-center text-white font-medium">LOGIN</Text>
