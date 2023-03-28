@@ -13,29 +13,37 @@ import Support from '../Sidebarpages/Support';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { DrawerActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { useNavigation } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
 
-const Welcome = () => {
-    const [username,setUserName] = useState("");
-    const getData = async () => {
-        try{
-            const name = await AsyncStorage.getItem('user');
-            if(name){
-                // console.log(JSON.parse(name).fname);
-                setUserName(JSON.parse(name).fname);
-            }
-        }catch(err){
-            console.log(err);
-        }
+const Welcome = (props) => {
+  const navigation = useNavigation();
+  const [username, setUserName] = useState("");
+
+  const getData = async () => {
+    try {
+      const name = await AsyncStorage.getItem('user');
+      if (name) {
+        // console.log(JSON.parse(name).fname);
+        setUserName(JSON.parse(name).fname);
+        // seturl(JSON.parse(name).url)
+      }
+    } catch (err) {
+      console.log(err);
     }
-    useEffect(() => {
-        getData();
-    })
+  }
+  useEffect(() => {
+    getData();
+  }, [props.avatarUrl])
+
+
   return (
     <>
       <View className="flex flex-row items-center ml-6 space-x-2">
-        <Image source={require("../../images/avatar.jpg")} className="h-12 w-12 rounded-full" />
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <Image source={{ uri: props.avatarUrl }} className="h-12 w-12 rounded-full" />
+        </TouchableOpacity>
         <View className="flex">
           <Text className="font-medium text-xs">Welcome back</Text>
           <Text className="font-medium text-2xl">{username}</Text>
@@ -47,8 +55,27 @@ const Welcome = () => {
 
 const MainScreen = (props) => {
 
+  const [avatarUrl, setAvatarUrl] = useState("");
+
+
   const navigation = useNavigation();
   const { width } = useWindowDimensions();
+
+  const getData = async () => {
+    try {
+      const user = await AsyncStorage.getItem('user');
+      if (user) {
+        setAvatarUrl(JSON.parse(user).url);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <Drawer.Navigator
       useLegacyImplementation
@@ -60,9 +87,9 @@ const MainScreen = (props) => {
           elevation: 0,
           shadowOpacity: 0,
         },
-        drawerPosition:"right",
+        drawerPosition: "right",
         headerTitle: "",
-        
+
 
         headerRight: () => (
 
@@ -74,7 +101,7 @@ const MainScreen = (props) => {
 
         ),
         headerLeft: () => (
-          <Welcome />
+          <Welcome avatarUrl={avatarUrl} />
         )
 
       }}
