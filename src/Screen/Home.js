@@ -117,31 +117,31 @@ const Home = () => {
     console.log(userpres.Medicines[0].name);
 
     if (loopnumber >= 0) {
-      // userpres.Medicines.map(async (item, index) => {
-      //   for (let i = 0; i < loopnumber; i++) {
-      //     if (userpres.Medicines[index].morning === true) {
-      //       let hours = 8;
-      //       let minutes = 0;
-      //       await schedulePushNotification("Your Today's Medicines", item.name, "", hours, minutes, days[dateIndex++ % 7]);
-      //     }
-      //     if (userpres.Medicines[index].afternoon === true) {
-      //       let hours = 12;
-      //       let minutes = 0;
-      //       await schedulePushNotification("Your Today's Medicines", item.name, "", hours, minutes, days[dateIndex++ % 7]);
-      //     }
-      //     if (userpres.Medicines[index].evening === true) {
-      //       let hours = 19;
-      //       let minutes = 0;
-      //       await schedulePushNotification("Your Today's Medicines", item.name, "", hours, minutes, days[dateIndex++ % 7]);
-      //     }
-      //     if (userpres.Medicines[index].night === true) {
-      //       let hours = 22;
-      //       let minutes = 0;
-      //       await schedulePushNotification("Your Today's Medicines", item.name, "", hours, minutes, days[dateIndex++ % 7]);
-      //     }
+      userpres.Medicines.map(async (item, index) => {
+        for (let i = 0; i < loopnumber; i++) {
+          if (userpres.Medicines[index].morning === true) {
+            let hours = 8;
+            let minutes = 0;
+            await schedulePushNotification("Your Today's Medicines", item.name, "", hours, minutes, days[dateIndex++ % 7]);
+          }
+          if (userpres.Medicines[index].afternoon === true) {
+            let hours = 12;
+            let minutes = 0;
+            await schedulePushNotification("Your Today's Medicines", item.name, "", hours, minutes, days[dateIndex++ % 7]);
+          }
+          if (userpres.Medicines[index].evening === true) {
+            let hours = 19;
+            let minutes = 0;
+            await schedulePushNotification("Your Today's Medicines", item.name, "", hours, minutes, days[dateIndex++ % 7]);
+          }
+          if (userpres.Medicines[index].night === true) {
+            let hours = 22;
+            let minutes = 0;
+            await schedulePushNotification("Your Today's Medicines", item.name, "", hours, minutes, days[dateIndex++ % 7]);
+          }
 
-      //   }
-      // })
+        }
+      })
     }
   }
 
