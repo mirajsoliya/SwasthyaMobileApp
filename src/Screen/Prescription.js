@@ -17,7 +17,7 @@ const Prescription = ({ navigation, setRootName }) => {
     try {
       const jsonValue = await AsyncStorage.getItem('userpres')
       // console.log(JSON.parse(jsonValue));
-      setPres(JSON.parse(jsonValue));
+      setPres(await JSON.parse(jsonValue));
       console.log(pres);
     } catch (e) {
       console.log(e);

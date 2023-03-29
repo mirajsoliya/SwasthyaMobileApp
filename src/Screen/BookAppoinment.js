@@ -64,7 +64,7 @@ const BookAppoinment = ({ user, navigation }) => {
         const time = time1;
         console.log(date + " " + time);
         try {
-            const res = await fetch("http://192.168.55.3:8000/bookapp", {
+            const res = await fetch("https://swasthya.onrender.com/bookapp", {
                 method: "POST",
                 headers: {
                     "Content-Type": "Application/json"

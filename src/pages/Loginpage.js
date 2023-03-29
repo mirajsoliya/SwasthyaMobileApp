@@ -25,7 +25,7 @@ const Loginpage = (props) => {
     const PatientID = pid;
     const password1 = password;
     console.log(PatientID + " " + password);
-    const res = await fetch("http://192.168.55.3:8000/login", {
+    const res = await fetch("https://swasthya.onrender.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "Application/json"
@@ -46,7 +46,6 @@ const Loginpage = (props) => {
       const jsonValue = JSON.stringify(data)
       await AsyncStorage.setItem('user', jsonValue)
       navigation.navigate("MainScreen");
-
     }
   }
   var passEye;

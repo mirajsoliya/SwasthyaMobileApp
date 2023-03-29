@@ -19,7 +19,7 @@ const Home = () => {
       const jsonValue = await AsyncStorage.getItem('user')
       const PID = JSON.parse(jsonValue).PID;
       const res = await fetch(
-        "http://192.168.55.3:8000/getLatestPrescription",
+        "https://swasthya.onrender.com/getLatestPrescription",
         {
           method: "POST",
           headers: {
@@ -42,6 +42,7 @@ const Home = () => {
 
     } catch (e) {
       console.log(e);
+      console.log("inide")
     }
   }
   const [appoint, setAppoint] = useState({});
@@ -50,7 +51,7 @@ const Home = () => {
     try {
       const jsonValue = await AsyncStorage.getItem('user')
       const PID = JSON.parse(jsonValue).PID;
-      const res = await fetch("http://192.168.1.8:8000/latestAppoint", {
+      const res = await fetch("https://swasthya.onrender.com/latestAppoint", {
         method: "POST",
         headers: {
           "Content-Type": "Application/json"
