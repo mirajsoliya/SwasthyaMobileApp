@@ -70,7 +70,7 @@ const MyProfile = () => {
     const ImageStore = async (url) => {
         try {
             const res = await fetch(
-                "http://192.168.55.3:8000/imageUpload",
+                "http://192.168.1.100:8000/imageUpload",
                 {
                     method: "POST",
                     headers: {
@@ -96,6 +96,7 @@ const MyProfile = () => {
             console.log("data profile..........");
             console.log(JSON.parse(jsonValue));
             setUser(JSON.parse(jsonValue));
+            setUser(...user,user.mobile.toString());
             console.log(user);
 
         } catch (e) {
@@ -119,7 +120,7 @@ const MyProfile = () => {
                 </TouchableOpacity>
 
             </View>
-            <View style={styles.containerInfo}>
+            <View className="mx-2">
                 <View style={styles.textcontainer}>
                     <Text style={styles.textinput}>Name :</Text>
                     <TextInput
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
     },
     textfield: {
         fontSize: 15,
-        width: '95%',
+        width: '100%',
         borderWidth: 1,
         borderRadius: 8,
         height: 35,
