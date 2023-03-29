@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import {
     StyleSheet,
     View,
-    Text
+    Text,
 } from 'react-native';
+import { BackHandler } from "react-native";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -16,9 +17,11 @@ import MainScreen from '../Screens/MainScreen';
 import Home from '../Screen/Home';
 import BookAppoinment from '../Screen/BookAppoinment';
 import Prescription from '../Screen/Prescription';
-
 const AppNavigator = ({ }) => {
 
+    const Stack = createNativeStackNavigator();
+    const [user, setUser] = useState({})
+    const navigationRef = useRef(null);
     const MyTheam = {
         dark: false,
         colors: {
@@ -26,11 +29,31 @@ const AppNavigator = ({ }) => {
         }
     }
 
-    const Stack = createNativeStackNavigator();
-    const [user, setUser] = useState({})
+    useEffect(() => {
+        const backAction = () => {
+            if (navigationRef.current?.getCurrentRoute().name === "Login") {
+                BackHandler.exitApp();
+                return true;
+            }
+            else if (navigationRef.current?.getCurrentRoute().name === "Home") {
+                BackHandler.exitApp();
+                return true;
+            }
+            return false;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            backAction
+        );
+
+        return () => backHandler.remove();
+    }, [navigationRef]);
+
+
 
     return (
-        <NavigationContainer theme={MyTheam}>
+        <NavigationContainer theme={MyTheam} ref={navigationRef}>
 
             <Stack.Navigator initialRouteName='Intro'
                 screenOptions={{
@@ -40,8 +63,12 @@ const AppNavigator = ({ }) => {
                 <Stack.Screen name='Intro' component={Introslider} />
 
 
-                <Stack.Screen name='Login'>
+                <Stack.Screen name='Login' >
                     {props => <Loginpage />}
+                </Stack.Screen>
+
+                <Stack.Screen name='Home' >
+                    {props => <Home />}
                 </Stack.Screen>
 
                 <Stack.Screen name='MainScreen'>

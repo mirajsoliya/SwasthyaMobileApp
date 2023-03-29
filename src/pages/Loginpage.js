@@ -6,6 +6,8 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  BackHandler,
+  useEffect
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -13,6 +15,7 @@ import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Loginpage = (props) => {
+
   const [pass, setPass] = useState(true);
   const navigation = useNavigation();
 
@@ -25,7 +28,7 @@ const Loginpage = (props) => {
     const PatientID = pid;
     const password1 = password;
     console.log(PatientID + " " + password);
-    const res = await fetch("http://192.168.1.100:8000/login", {
+    const res = await fetch("http://192.168.55.3:8000/login", {
       method: "POST",
       headers: {
         "Content-Type": "Application/json"
@@ -48,6 +51,9 @@ const Loginpage = (props) => {
       navigation.navigate("MainScreen");
     }
   }
+
+
+
   var passEye;
   if (pass) {
     passEye = (
@@ -68,6 +74,8 @@ const Loginpage = (props) => {
       />
     );
   }
+
+
   return (
     <>
       <View className="bg-white mt-10 h-full">
