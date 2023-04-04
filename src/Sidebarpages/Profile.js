@@ -96,7 +96,6 @@ const MyProfile = () => {
             console.log("data profile..........");
             console.log(JSON.parse(jsonValue));
             setUser(JSON.parse(jsonValue));
-            setUser(...user, user.mobile.toString());
             console.log(user);
 
         } catch (e) {
@@ -137,7 +136,7 @@ const MyProfile = () => {
                         style={styles.textfield}
                         placeholder=" Mobile No"
                         selectionColor={'black'}
-                        defaultValue={user?.mobile.toString()}
+                        defaultValue={user?.mobile}
                     />
                 </View>
                 <View style={styles.textcontainer}>

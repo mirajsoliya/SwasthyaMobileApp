@@ -149,7 +149,7 @@ const Notification = ({ navigation, setRootName }) => {
     const submitdata = async () => {
 
         const res = await fetch(
-            "http://192.168.16.37:8000/pythondadta",
+            "http://192.168.1.100:8000/pythondadta",
             {
                 method: "POST",
                 headers: {

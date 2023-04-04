@@ -92,17 +92,17 @@ const Prescription = ({ navigation, setRootName }) => {
             </View>
             <View className="mb-2">
               <View className="h-2 w-full rounded-full bg-gray-200 absolute top-0 left-0"></View>
-              <View className={`h-2 rounded-full ${daily === 4 ? "w-full" : `${daily === 2 ? "w-1/2" : `${daily === 1 ? "w-1/3" : `w-${daily}/4`}`}`} bg-sky-400 absolute top-0 left-0`}></View>
+              <View className={`h-2 rounded-full w-3/4 bg-sky-400 absolute top-0 left-0`}></View>
             </View>
           </View>
           <View className="basis-1/2 flex-1 flex space-y-3 p-4 ml-2 bg-gray-100 rounded-xl">
             <View className="flex flex-row items-center justify-between">
               <Text className="w-20 font-medium">Treatment progress</Text>
-              <Text className="text-2xl font-semibold">{progress}%</Text>
+              <Text className="text-2xl font-semibold">25%</Text>
             </View>
             <View className="mb-2">
               <View className="h-2 w-full rounded-full bg-gray-200 absolute top-0 left-0"></View>
-              <View className={`h-2 ${progress === 100 ? "w-full" : `w-${predate}/${pres.no_of_days}`} rounded-full bg-red-400 absolute top-0 left-0`}></View>
+              <View className={`h-2 w-1/4 rounded-full bg-red-400 absolute top-0 left-0`}></View>
             </View>
           </View>
         </View>

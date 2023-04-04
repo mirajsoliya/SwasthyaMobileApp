@@ -28,7 +28,7 @@ const Loginpage = (props) => {
     const PatientID = pid;
     const password1 = password;
     console.log(PatientID + " " + password);
-    const res = await fetch("http://192.168.55.3:8000/login", {
+    const res = await fetch("http://192.168.1.100:8000/login", {
       method: "POST",
       headers: {
         "Content-Type": "Application/json"
